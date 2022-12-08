@@ -12,3 +12,5 @@
  
 4. Jakieś pomysły na nazwę tej platformy?
  A: Narzędzia będziemy używać wyłącznie w wewnętrznym gronie Samorządu, więc nie musi być to nic wybitnego. Od siebie zaproponuję „promotor” (jako: „narzędzie do zarządzania promocją”).
+ 
+5. Preferowana paleta barw aplikacji?
