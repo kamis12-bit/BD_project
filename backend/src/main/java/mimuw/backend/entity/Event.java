@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 //@Entity
-//@Table(name = "event")
+//@Table(name = "promoter_event")
 public class Event {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
