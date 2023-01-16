@@ -1,7 +1,6 @@
 package mimuw.backend.service;
 
 import mimuw.backend.entity.Event;
-
 import java.util.List;
 
 public interface EventService {

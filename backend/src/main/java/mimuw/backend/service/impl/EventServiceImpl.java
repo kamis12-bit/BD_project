@@ -16,7 +16,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event createEvent(Event event) {
         return eventRepository.save(event);
-//        return null;
     }
 
     @Override
@@ -28,7 +27,6 @@ public class EventServiceImpl implements EventService {
         eventToUpdate.setEndDate(event.getEndDate());
         eventToUpdate.setArchived(event.getArchived());
         return eventRepository.save(eventToUpdate);
-//        return null;
     }
 
     @Override
@@ -39,12 +37,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public Event getEventById(Long id) {
         return eventRepository.findById(id).orElseThrow();
-//        return null;
     }
 
     @Override
     public List<Event> getAllEvents() {
         return eventRepository.findAll();
-//        return null;
     }
 }
