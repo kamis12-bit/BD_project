@@ -42,10 +42,8 @@ public class EventController {
     }
 
     @GetMapping("/all")
-//    public ResponseEntity<List<Event>> getAllEvents() {
-    public String getAllEvents() {
+    public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-//        return new ResponseEntity<>(events, HttpStatus.OK);
-        return "Hello, the time at the server is now " + new Date() + "\n";
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 }
