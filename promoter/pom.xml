@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>mimuw</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>promoter</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend</name>
-    <description>backend</description>
+    <name>promoter</name>
+    <description>Online platform for organizing promotions events</description>
     <properties>
         <java.version>17</java.version>
     </properties>

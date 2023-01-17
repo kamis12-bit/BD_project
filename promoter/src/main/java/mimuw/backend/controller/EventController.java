@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -41,8 +42,10 @@ public class EventController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Event>> getAllEvents() {
+//    public ResponseEntity<List<Event>> getAllEvents() {
+    public String getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-        return new ResponseEntity<>(events, HttpStatus.OK);
+//        return new ResponseEntity<>(events, HttpStatus.OK);
+        return "Hello, the time at the server is now " + new Date() + "\n";
     }
 }

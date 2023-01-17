@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/message_type")
+@RequestMapping("/api/message-type")
 public class MessageTypeController {
     private MessageTypeService messageTypeService;
 
