@@ -1,5 +1,6 @@
 package mimuw.backend.service;
 
+import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface EventService {
 
     List<Event> getAllEvents();
 
-    List<Event> getAllEventsFromJoin();
+    List<MainViewEvent> getMainViewEvents();
 }

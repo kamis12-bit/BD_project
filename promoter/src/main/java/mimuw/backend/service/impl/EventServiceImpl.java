@@ -1,17 +1,22 @@
 package mimuw.backend.service.impl;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.dto.EventShortInfo;
+import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.repository.EventRepository;
+import mimuw.backend.repository.PersonRepository;
 import mimuw.backend.service.EventService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
+    private PersonRepository personRepository;
 
     @Override
     public Event createEvent(Event event) {
@@ -45,7 +50,24 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllEventsFromJoin() {
-        return eventRepository.getAllEventsFromJoin();
+    public List<MainViewEvent> getMainViewEvents() {
+        List<EventShortInfo> eventShortInfos = eventRepository.getAllEventsSortedByBeginDate();
+        List<MainViewEvent> mainViewEvents = new ArrayList<>();
+
+        for (EventShortInfo eventShortInfo : eventShortInfos) {
+            MainViewEvent mainViewEvent = new MainViewEvent();
+            mainViewEvent.setId(eventShortInfo.getId());
+            mainViewEvent.setName(eventShortInfo.getName());
+            mainViewEvent.setBeginDate(eventShortInfo.getBeginDate());
+            mainViewEvent.setEndDate(eventShortInfo.getEndDate());
+            mainViewEvent.setPersons(personRepository.findPeopleFromEvent(eventShortInfo.getId()));
+            mainViewEvents.add(mainViewEvent);
+        }
+        return mainViewEvents;
     }
+
+//    @Override
+//    public List<Event> getAllEventsFromJoin() {
+//        return eventRepository.getAllEventsFromJoin();
+//    }
 }

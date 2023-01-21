@@ -16,8 +16,6 @@ import java.util.List;
 public class PersonController {
     private PersonService personService;
 
-    static Long newID = 3L;
-
     @PostMapping("/create")
     public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         Person createdPerson = personService.createPerson(person);
@@ -65,12 +63,6 @@ public class PersonController {
 //        List<Person> persons = List.of(
 //                new Person(1L, "Wojciech", "Weremczuk", "img_avatar1.png"),
 //                new Person(2L, "Krzysztof", "Szostek", "img_avatar2.png"));
-        return new ResponseEntity<>(persons, HttpStatus.OK);
-    }
-
-    @GetMapping("/allWojciech")
-    public ResponseEntity<List<Person>> getPeopleWithNameWojciech() {
-         List<Person> persons = personService.getPeopleWithNameWojciech();
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 }

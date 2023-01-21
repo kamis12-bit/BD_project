@@ -6,10 +6,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query(
-        value = "SELECT * FROM promoter_person WHERE first_name = 'Wojciech' ", 
+        value =
+            "SELECT per.* FROM promote_event_person ep " +
+            "LEFT JOIN promote_person per ON ep.person = per.id " +
+            "WHERE ep.event = :eventId",
         nativeQuery = true)
-    List<Person> findPeopleWithNameWojciech();
+    List<Person> findPeopleFromEvent(@Param("eventId") Long eventId);
 }

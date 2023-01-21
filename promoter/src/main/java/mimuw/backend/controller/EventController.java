@@ -1,6 +1,7 @@
 package mimuw.backend.controller;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.service.EventService;
 import org.springframework.http.HttpStatus;
@@ -50,10 +51,15 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @GetMapping("/allFromJoin")
-    public ResponseEntity<List<Event>> getAllEventsFromJoin() {
-        List<Event> events = eventService.getAllEventsFromJoin();
-//        List<Event> events = List.of(new Event(), new Event());
-        return new ResponseEntity<>(events, HttpStatus.OK);
+    @GetMapping("/mainView")
+    public ResponseEntity<List<MainViewEvent>> getMainViewEvents() {
+        List<MainViewEvent> mainViewEvents = eventService.getMainViewEvents();
+        return new ResponseEntity<>(mainViewEvents, HttpStatus.OK);
     }
+
+//    @GetMapping("/allFromJoin")
+//    public ResponseEntity<List<Event>> getAllEventsFromJoin() {
+//        List<Event> events = eventService.getAllEventsFromJoin();
+//        return new ResponseEntity<>(events, HttpStatus.OK);
+//    }
 }
