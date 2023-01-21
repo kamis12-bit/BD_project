@@ -14,4 +14,6 @@ public interface EventService {
     Event getEventById(Long id);
 
     List<Event> getAllEvents();
+
+    List<Event> getAllEventsFromJoin();
 }

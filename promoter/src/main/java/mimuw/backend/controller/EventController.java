@@ -49,4 +49,11 @@ public class EventController {
 //        List<Event> events = List.of(new Event(), new Event());
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
+
+    @GetMapping("/allFromJoin")
+    public ResponseEntity<List<Event>> getAllEventsFromJoin() {
+        List<Event> events = eventService.getAllEventsFromJoin();
+//        List<Event> events = List.of(new Event(), new Event());
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
 }
