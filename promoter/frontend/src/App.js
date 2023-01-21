@@ -24,37 +24,38 @@ function App() {
 
 export default App; */
 // eslint-disable-next-line
-import React, {Component, useState, useEffect} from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import PersonComponent from './component/PersonComponent'
+import ListPersons from './component/ListPersons'
+import { Link, Routes, Route } from 'react-router-dom'
 
-function App () {
-    const [message, setMessage] = useState("");
+const App = () => (
+  <div className='App'>
+    <img src={logo} className='App-logo' alt='logo' />
+    <div className='App-title'>
+      <Main />
+    </div>
+  </div>
+)
 
-    useEffect(() => {
-        fetch('/api/person/get/1')
-            .then(response => response.text())
-            .then(message => {
-                setMessage(message);
-            });
-    },[])
-    console.log(message);
-    
-    //const table = JSON.parse(message); //If uncommented, no message comes in
-    return (
-        <div className="App">
-            <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo"/>
-            <h1 className="App-title">
-               {message}      </h1>
-            </header>
-            <p className="App-intro">
-                To get started, edit <code>src/App.js</code> and save to reload.
-            </p>
-        </div>
-    )
-}
-                /* Hello, {table.firstName} {table.lastName} this is
+const Home = () => (
+  <div>
+    {' '}
+    Hello world! <Link to='list-persons'>display people</Link>
+  </div>
+)
+
+const Main = () => (
+  <Routes>
+    <Route path='/' element={<Home />} />
+    <Route path='modify-person/:id' element={<PersonComponent />} />
+    <Route path='list-persons' element={<ListPersons />} />
+  </Routes>
+)
+
+/* Hello, {table.firstName} {table.lastName} this is
                 the backend speaking and this is your avatar: {table.image} */
 
-export default App;
+export default App
