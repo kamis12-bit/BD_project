@@ -51,15 +51,15 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @GetMapping("/mainView")
+    @GetMapping("/all-sorted")
+    public ResponseEntity<List<Event>> getAllEventsSortedByBeginDate() {
+        List<Event> events = eventService.getAllEventsSortedByBeginDate();
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
+    @GetMapping("/main-view")
     public ResponseEntity<List<MainViewEvent>> getMainViewEvents() {
         List<MainViewEvent> mainViewEvents = eventService.getMainViewEvents();
         return new ResponseEntity<>(mainViewEvents, HttpStatus.OK);
     }
-
-//    @GetMapping("/allFromJoin")
-//    public ResponseEntity<List<Event>> getAllEventsFromJoin() {
-//        List<Event> events = eventService.getAllEventsFromJoin();
-//        return new ResponseEntity<>(events, HttpStatus.OK);
-//    }
 }

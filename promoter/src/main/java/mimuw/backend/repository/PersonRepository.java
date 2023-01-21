@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query(
         value =
-            "SELECT per.* FROM promote_event_person ep " +
-            "LEFT JOIN promote_person per ON ep.person = per.id " +
+            "SELECT per.* FROM promoter_event_person ep " +
+            "LEFT JOIN promoter_person per ON ep.person = per.id " +
             "WHERE ep.event = :eventId",
         nativeQuery = true)
     List<Person> findPeopleFromEvent(@Param("eventId") Long eventId);

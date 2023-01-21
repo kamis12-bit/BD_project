@@ -65,4 +65,10 @@ public class PersonController {
 //                new Person(2L, "Krzysztof", "Szostek", "img_avatar2.png"));
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
+
+    @GetMapping("/all-from-event/{id}")
+    public ResponseEntity<List<Person>> getAllPersonsFromEvent(@PathVariable Long id) {
+        List<Person> persons = personService.getPersonsByEventId(id);
+        return new ResponseEntity<>(persons, HttpStatus.OK);
+    }
 }

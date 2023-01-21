@@ -1,12 +1,11 @@
 package mimuw.backend.service.impl;
 
 import lombok.AllArgsConstructor;
-import mimuw.backend.dto.EventShortInfo;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.repository.EventRepository;
-import mimuw.backend.repository.PersonRepository;
 import mimuw.backend.service.EventService;
+import mimuw.backend.service.PersonService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
-    private PersonRepository personRepository;
+    private PersonService personService;
 
     @Override
     public Event createEvent(Event event) {
@@ -50,24 +49,24 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<Event> getAllEventsSortedByBeginDate() {
+        return eventRepository.getAllEventsSortedByBeginDate();
+    }
+
+    @Override
     public List<MainViewEvent> getMainViewEvents() {
-        List<EventShortInfo> eventShortInfos = eventRepository.getAllEventsSortedByBeginDate();
+        List<Event> events = eventRepository.getAllEventsSortedByBeginDate();
         List<MainViewEvent> mainViewEvents = new ArrayList<>();
 
-        for (EventShortInfo eventShortInfo : eventShortInfos) {
+        for (Event event: events) {
             MainViewEvent mainViewEvent = new MainViewEvent();
-            mainViewEvent.setId(eventShortInfo.getId());
-            mainViewEvent.setName(eventShortInfo.getName());
-            mainViewEvent.setBeginDate(eventShortInfo.getBeginDate());
-            mainViewEvent.setEndDate(eventShortInfo.getEndDate());
-            mainViewEvent.setPersons(personRepository.findPeopleFromEvent(eventShortInfo.getId()));
+            mainViewEvent.setId(event.getId());
+            mainViewEvent.setName(event.getName());
+            mainViewEvent.setBeginDate(event.getBeginDate());
+            mainViewEvent.setEndDate(event.getEndDate());
+            mainViewEvent.setPersons(personService.getPersonsByEventId(event.getId()));
             mainViewEvents.add(mainViewEvent);
         }
         return mainViewEvents;
     }
-
-//    @Override
-//    public List<Event> getAllEventsFromJoin() {
-//        return eventRepository.getAllEventsFromJoin();
-//    }
 }

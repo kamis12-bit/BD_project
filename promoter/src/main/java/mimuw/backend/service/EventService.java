@@ -16,5 +16,7 @@ public interface EventService {
 
     List<Event> getAllEvents();
 
+    List<Event> getAllEventsSortedByBeginDate();
+
     List<MainViewEvent> getMainViewEvents();
 }
