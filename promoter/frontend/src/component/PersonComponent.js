@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import '../App.css'
 import { useParams } from 'react-router-dom'
+import GoToMenu from './GoToMenu'
 
 export function withRouter(Children) {
   return (props) => {
@@ -49,9 +50,10 @@ class PersonComponent extends React.Component {
         <p>
           Person:
           <button className='App-button'>{this.state.firstName}</button>
-          <button className='App-button'> {this.state.lastName}</button>
+          <button className='App-button'>{this.state.lastName}</button>
           <button className='App-button'>{this.state.avatar}</button>
         </p>
+        <GoToMenu />
       </div>
     )
   }
