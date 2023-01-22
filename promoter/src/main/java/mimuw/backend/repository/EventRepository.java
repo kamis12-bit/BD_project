@@ -1,6 +1,5 @@
 package mimuw.backend.repository;
 
-import mimuw.backend.dto.EventShortInfo;
 import mimuw.backend.entity.Event;
 
 import java.util.List;
@@ -16,5 +15,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE archived = 0 " +
             "ORDER BY begin_date ",
         nativeQuery = true)
-    List<EventShortInfo> getAllEventsSortedByBeginDate();
+    List<Object[]> getAllEventsSortedByBeginDate();
 }

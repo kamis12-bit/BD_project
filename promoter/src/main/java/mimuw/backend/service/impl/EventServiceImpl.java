@@ -51,23 +51,33 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventShortInfo> getAllEventsSortedByBeginDate() {
-        return eventRepository.getAllEventsSortedByBeginDate();
+        List<Object[]> objects = eventRepository.getAllEventsSortedByBeginDate();
+        List<EventShortInfo> events = new ArrayList<>();
+        for (Object[] object : objects) {
+            EventShortInfo event = new EventShortInfo();
+            event.setId((Long) object[0]);
+            event.setName((String) object[1]);
+            event.setBeginDate((String) object[2]);
+            event.setEndDate((String) object[3]);
+            events.add(event);
+        }
+        return events;
     }
 
     @Override
     public List<MainViewEvent> getMainViewEvents() {
-        List<EventShortInfo> eventShortInfos = eventRepository.getAllEventsSortedByBeginDate();
-        List<MainViewEvent> mainViewEvents = new ArrayList<>();
+        List<Object[]> objects = eventRepository.getAllEventsSortedByBeginDate();
 
-        for (EventShortInfo eventShortInfo: eventShortInfos) {
-            MainViewEvent mainViewEvent = new MainViewEvent();
-            mainViewEvent.setId(eventShortInfo.getId());
-            mainViewEvent.setName(eventShortInfo.getName());
-            mainViewEvent.setBeginDate(eventShortInfo.getBeginDate());
-            mainViewEvent.setEndDate(eventShortInfo.getEndDate());
-            mainViewEvent.setPersons(personService.getPersonsByEventId(eventShortInfo.getId()));
-            mainViewEvents.add(mainViewEvent);
+        List<MainViewEvent> events = new ArrayList<>();
+        for (Object[] object : objects) {
+            MainViewEvent event = new MainViewEvent();
+            event.setId((Long) object[0]);
+            event.setName((String) object[1]);
+            event.setBeginDate((String) object[2]);
+            event.setEndDate((String) object[3]);
+            event.setPersons(personService.getPersonsByEventId(event.getId()));
+            events.add(event);
         }
-        return mainViewEvents;
+        return events;
     }
 }
