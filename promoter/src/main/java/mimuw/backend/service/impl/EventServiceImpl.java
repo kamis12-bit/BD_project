@@ -1,6 +1,7 @@
 package mimuw.backend.service.impl;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.dto.EventShortInfo;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.repository.EventRepository;
@@ -49,22 +50,22 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllEventsSortedByBeginDate() {
+    public List<EventShortInfo> getAllEventsSortedByBeginDate() {
         return eventRepository.getAllEventsSortedByBeginDate();
     }
 
     @Override
     public List<MainViewEvent> getMainViewEvents() {
-        List<Event> events = eventRepository.getAllEventsSortedByBeginDate();
+        List<EventShortInfo> eventShortInfos = eventRepository.getAllEventsSortedByBeginDate();
         List<MainViewEvent> mainViewEvents = new ArrayList<>();
 
-        for (Event event: events) {
+        for (EventShortInfo eventShortInfo: eventShortInfos) {
             MainViewEvent mainViewEvent = new MainViewEvent();
-            mainViewEvent.setId(event.getId());
-            mainViewEvent.setName(event.getName());
-            mainViewEvent.setBeginDate(event.getBeginDate());
-            mainViewEvent.setEndDate(event.getEndDate());
-            mainViewEvent.setPersons(personService.getPersonsByEventId(event.getId()));
+            mainViewEvent.setId(eventShortInfo.getId());
+            mainViewEvent.setName(eventShortInfo.getName());
+            mainViewEvent.setBeginDate(eventShortInfo.getBeginDate());
+            mainViewEvent.setEndDate(eventShortInfo.getEndDate());
+            mainViewEvent.setPersons(personService.getPersonsByEventId(eventShortInfo.getId()));
             mainViewEvents.add(mainViewEvent);
         }
         return mainViewEvents;
