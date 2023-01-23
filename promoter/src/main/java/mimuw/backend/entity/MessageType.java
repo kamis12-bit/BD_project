@@ -15,11 +15,12 @@ import lombok.Setter;
 public class MessageType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
     private String name;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR2(20) NOT NULL")
     private String colour;
 }

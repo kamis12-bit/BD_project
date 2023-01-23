@@ -15,24 +15,27 @@ import lombok.Setter;
 public class PromoMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
     private String name;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "DATE NOT NULL")
     private String publicationDate;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NUMBER(1) NOT NULL")
     private Integer published;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NUMBER(10) NOT NULL")
     private Long event;
 
+    @Column(columnDefinition = "NUMBER(10)")
     private Long graphics;
 
+    @Column(columnDefinition = "NUMBER(10)")
     private Long description;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NUMBER(10) NOT NULL")
     private Long hasType;
 }

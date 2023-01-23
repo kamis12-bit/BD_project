@@ -1,7 +1,6 @@
 package mimuw.backend.controller;
 
 import lombok.AllArgsConstructor;
-import mimuw.backend.dto.EventShortInfo;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.service.EventService;
@@ -53,8 +52,8 @@ public class EventController {
     }
 
     @GetMapping("/all-sorted")
-    public ResponseEntity<List<EventShortInfo>> getAllEventsSortedByBeginDate() {
-        List<EventShortInfo> events = eventService.getAllEventsSortedByBeginDate();
+    public ResponseEntity<List<Event>> getAllEventsSortedByBeginDate() {
+        List<Event> events = eventService.getAllEventsSortedByBeginDate();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 

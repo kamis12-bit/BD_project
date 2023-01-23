@@ -10,10 +10,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Query(
         value =
-            "SELECT id, name, begin_date, end_date " +
-            "FROM promoter_event " +
+            "SELECT * FROM promoter_event " +
             "WHERE archived = 0 " +
             "ORDER BY begin_date ",
         nativeQuery = true)
-    List<Object[]> getAllEventsSortedByBeginDate();
+    List<Event> getAllEventsSortedByBeginDate();
 }

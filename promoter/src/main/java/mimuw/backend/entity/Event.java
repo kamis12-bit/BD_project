@@ -15,19 +15,21 @@ import lombok.Setter;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
     private String name;
 
+    @Column(columnDefinition = "VARCHAR2(1000)")
     private String description;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "DATE NOT NULL")
     private String beginDate;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "DATE NOT NULL")
     private String endDate;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NUMBER(1) NOT NULL")
     private Integer archived;
 }

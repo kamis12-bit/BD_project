@@ -15,16 +15,18 @@ import lombok.Setter;
 public class Description {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NUMBER(1) NOT NULL")
     private Integer state;
 
+    @Column(columnDefinition = "VARCHAR2(1000)")
     private String reason;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
     private String descriptionContent;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NUMBER(10) NOT NULL")
     private Long supervisor;
 }

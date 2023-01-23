@@ -15,13 +15,15 @@ import lombok.Setter;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR2(40) NOT NULL")
     String firstName;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "VARCHAR2(40) NOT NULL")
     String lastName;
 
+    @Column(columnDefinition = "VARCHAR2(100)")
     String avatar;
 }
