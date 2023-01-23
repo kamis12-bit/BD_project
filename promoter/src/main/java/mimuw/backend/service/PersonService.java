@@ -14,4 +14,6 @@ public interface PersonService {
         Person getPersonById(Long id);
 
         List<Person> getAllPersons();
+
+        List<Person> getPersonsByEventId(Long eventId);
 }
