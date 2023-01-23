@@ -38,6 +38,23 @@ class PersonComponent extends React.Component {
     this.setState({ avatar: event })
   }
 
+  update = () => {
+    const { id, firstName, lastName, avatar } = this.state
+    axios
+      .put('/api/person/update/' + this.state.id, {
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        avatar: avatar,
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   componentDidMount() {
     axios
       .get('/api/person/get/' + this.props.match.params.id)
@@ -62,22 +79,23 @@ class PersonComponent extends React.Component {
   render() {
     return (
       <div>
-        <p>
-          Person:
-          <ButtonForm
-            value={this.state.firstName}
-            handleSubmit={this.changeFirstName}
-          />
-          <ButtonForm
-            value={this.state.lastName}
-            handleSubmit={this.changeLastName}
-          />
-          <ButtonForm
-            value={this.state.avatar}
-            handleSubmit={this.changeAvatar}
-          />
-        </p>
+        Person:
+        <ButtonForm
+          value={this.state.firstName}
+          handleSubmit={this.changeFirstName}
+        />
+        <ButtonForm
+          value={this.state.lastName}
+          handleSubmit={this.changeLastName}
+        />
+        <ButtonForm
+          value={this.state.avatar}
+          handleSubmit={this.changeAvatar}
+        />
         <GoToMenu />
+        <button className='App-button' onClick={this.update}>
+          Update
+        </button>
       </div>
     )
   }
