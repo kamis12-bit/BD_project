@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "promoter_event")
-public class Event {
+@Table(name = "promoter_promo_message")
+public class PromoMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "NUMBER(10)")
@@ -23,15 +23,21 @@ public class Event {
     @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
     private String name;
 
-    @Column(columnDefinition = "VARCHAR2(1000)")
-    private String description;
-
     @Column(columnDefinition = "DATE NOT NULL")
-    private LocalDateTime beginDate;
-
-    @Column(columnDefinition = "DATE NOT NULL")
-    private LocalDateTime endDate;
+    private LocalDateTime publicationDate;
 
     @Column(columnDefinition = "NUMBER(1) NOT NULL")
-    private Integer archived;
+    private Integer published;
+
+    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    private Long event;
+
+    @Column(columnDefinition = "NUMBER(10)")
+    private Long graphics;
+
+    @Column(columnDefinition = "NUMBER(10)")
+    private Long description;
+
+    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    private Long hasType;
 }

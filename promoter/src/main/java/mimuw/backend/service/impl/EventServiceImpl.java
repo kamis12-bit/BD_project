@@ -1,12 +1,12 @@
 package mimuw.backend.service.impl;
 
 import lombok.AllArgsConstructor;
-import mimuw.backend.dto.EventShortInfo;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.repository.EventRepository;
 import mimuw.backend.service.EventService;
 import mimuw.backend.service.PersonService;
+import mimuw.backend.service.PromoMessageService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +17,7 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
     private PersonService personService;
+    private PromoMessageService promoMessageService;
 
     @Override
     public Event createEvent(Event event) {
@@ -50,24 +51,38 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventShortInfo> getAllEventsSortedByBeginDate() {
-        return eventRepository.getAllEventsSortedByBeginDate();
+    public List<Event> getAllUnarchivedEvents() {
+        return eventRepository.getAllUnarchivedEvents();
+    }
+
+    @Override
+    public List<Event> getAllArchivedEvents() {
+        return eventRepository.getAllArchivedEvents();
+    }
+
+    private List<MainViewEvent> createResultForSelectedEvents(List<Event> events) {
+        List<MainViewEvent> mainViewEvents = new ArrayList<>();
+
+        for (Event event: events) {
+            MainViewEvent mainViewEvent = new MainViewEvent();
+            mainViewEvent.setId(event.getId());
+            mainViewEvent.setName(event.getName());
+            mainViewEvent.setBeginDate(event.getBeginDate());
+            mainViewEvent.setEndDate(event.getEndDate());
+            mainViewEvent.setPersons(personService.getPersonsByEventId(event.getId()));
+            mainViewEvent.setIsPublished(promoMessageService.isPromoMessagePublishedByEvent(event.getId()));
+            mainViewEvents.add(mainViewEvent);
+        }
+        return mainViewEvents;
     }
 
     @Override
     public List<MainViewEvent> getMainViewEvents() {
-        List<EventShortInfo> eventShortInfos = eventRepository.getAllEventsSortedByBeginDate();
-        List<MainViewEvent> mainViewEvents = new ArrayList<>();
+        return createResultForSelectedEvents(eventRepository.getAllUnarchivedEvents());
+    }
 
-        for (EventShortInfo eventShortInfo: eventShortInfos) {
-            MainViewEvent mainViewEvent = new MainViewEvent();
-            mainViewEvent.setId(eventShortInfo.getId());
-            mainViewEvent.setName(eventShortInfo.getName());
-            mainViewEvent.setBeginDate(eventShortInfo.getBeginDate());
-            mainViewEvent.setEndDate(eventShortInfo.getEndDate());
-            mainViewEvent.setPersons(personService.getPersonsByEventId(eventShortInfo.getId()));
-            mainViewEvents.add(mainViewEvent);
-        }
-        return mainViewEvents;
+    @Override
+    public List<MainViewEvent> getArchivisedViewEvents() {
+        return createResultForSelectedEvents(eventRepository.getAllArchivedEvents());
     }
 }

@@ -11,16 +11,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "promoter_message_type")
-public class MessageType {
+@Table(name = "promoter_event_person")
+public class EventPerson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
-    private String name;
+    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    private Long event;
 
-    @Column(columnDefinition = "VARCHAR2(20) NOT NULL")
-    private String colour;
+    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    private Long person;
 }

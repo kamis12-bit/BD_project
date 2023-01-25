@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mimuw.backend.entity.Person;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -15,7 +16,8 @@ import java.util.List;
 public class MainViewEvent {
     private Long id;
     private String name;
-    private String beginDate;
-    private String endDate;
+    private LocalDateTime beginDate;
+    private LocalDateTime endDate;
+    private Integer isPublished;
     private List<Person> persons;
 }

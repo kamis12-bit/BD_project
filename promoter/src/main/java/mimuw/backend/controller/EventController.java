@@ -1,7 +1,6 @@
 package mimuw.backend.controller;
 
 import lombok.AllArgsConstructor;
-import mimuw.backend.dto.EventShortInfo;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.service.EventService;
@@ -52,9 +51,15 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @GetMapping("/all-sorted")
-    public ResponseEntity<List<EventShortInfo>> getAllEventsSortedByBeginDate() {
-        List<EventShortInfo> events = eventService.getAllEventsSortedByBeginDate();
+    @GetMapping("/all-unarchived")
+    public ResponseEntity<List<Event>> getAllUnarchivedEvents() {
+        List<Event> events = eventService.getAllUnarchivedEvents();
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
+    @GetMapping("/all-archived")
+    public ResponseEntity<List<Event>> getAllArchivedEvents() {
+        List<Event> events = eventService.getAllArchivedEvents();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
@@ -62,5 +67,11 @@ public class EventController {
     public ResponseEntity<List<MainViewEvent>> getMainViewEvents() {
         List<MainViewEvent> mainViewEvents = eventService.getMainViewEvents();
         return new ResponseEntity<>(mainViewEvents, HttpStatus.OK);
+    }
+
+    @GetMapping("/archivised-view")
+    public ResponseEntity<List<MainViewEvent>> getArchivisedViewEvents() {
+        List<MainViewEvent> archivisedViewEvents = eventService.getArchivisedViewEvents();
+        return new ResponseEntity<>(archivisedViewEvents, HttpStatus.OK);
     }
 }
