@@ -45,4 +45,11 @@ public class PromoMessageImpl implements PromoMessageService {
     public List<PromoMessage> getAllPromoMessages() {
         return promoMessageRepository.findAll();
     }
+
+    @Override
+    public Integer isPromoMessagePublishedByEvent(Long eventId) {
+        Integer sumAll = promoMessageRepository.countAllPromoMessagesByEvent(eventId);
+        Integer sumPublished = promoMessageRepository.countPublishedPromoMessagesByEvent(eventId);
+        return sumAll == sumPublished ? 1 : 0;
+    }
 }

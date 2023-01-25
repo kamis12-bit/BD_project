@@ -18,5 +18,6 @@ public class MainViewEvent {
     private String name;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
+    private Integer isPublished;
     private List<Person> persons;
 }

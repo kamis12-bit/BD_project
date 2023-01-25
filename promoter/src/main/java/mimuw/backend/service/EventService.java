@@ -21,4 +21,6 @@ public interface EventService {
     List<Event> getAllArchivedEvents();
 
     List<MainViewEvent> getMainViewEvents();
+
+    List<MainViewEvent> getArchivisedViewEvents();
 }

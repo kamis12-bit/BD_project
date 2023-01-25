@@ -14,4 +14,6 @@ public interface PromoMessageService {
     PromoMessage getPromoMessageById(Long id);
 
     List<PromoMessage> getAllPromoMessages();
+
+    Integer isPromoMessagePublishedByEvent(Long eventId);
 }

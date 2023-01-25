@@ -6,6 +6,7 @@ import mimuw.backend.entity.Event;
 import mimuw.backend.repository.EventRepository;
 import mimuw.backend.service.EventService;
 import mimuw.backend.service.PersonService;
+import mimuw.backend.service.PromoMessageService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
     private PersonService personService;
+    private PromoMessageService promoMessageService;
 
     @Override
     public Event createEvent(Event event) {
@@ -58,9 +60,7 @@ public class EventServiceImpl implements EventService {
         return eventRepository.getAllArchivedEvents();
     }
 
-    @Override
-    public List<MainViewEvent> getMainViewEvents() {
-        List<Event> events = eventRepository.getAllUnarchivedEvents();
+    private List<MainViewEvent> createResultForSelectedEvents(List<Event> events) {
         List<MainViewEvent> mainViewEvents = new ArrayList<>();
 
         for (Event event: events) {
@@ -70,8 +70,19 @@ public class EventServiceImpl implements EventService {
             mainViewEvent.setBeginDate(event.getBeginDate());
             mainViewEvent.setEndDate(event.getEndDate());
             mainViewEvent.setPersons(personService.getPersonsByEventId(event.getId()));
+            mainViewEvent.setIsPublished(promoMessageService.isPromoMessagePublishedByEvent(event.getId()));
             mainViewEvents.add(mainViewEvent);
         }
         return mainViewEvents;
+    }
+
+    @Override
+    public List<MainViewEvent> getMainViewEvents() {
+        return createResultForSelectedEvents(eventRepository.getAllUnarchivedEvents());
+    }
+
+    @Override
+    public List<MainViewEvent> getArchivisedViewEvents() {
+        return createResultForSelectedEvents(eventRepository.getAllArchivedEvents());
     }
 }

@@ -68,4 +68,10 @@ public class EventController {
         List<MainViewEvent> mainViewEvents = eventService.getMainViewEvents();
         return new ResponseEntity<>(mainViewEvents, HttpStatus.OK);
     }
+
+    @GetMapping("/archivised-view")
+    public ResponseEntity<List<MainViewEvent>> getArchivisedViewEvents() {
+        List<MainViewEvent> archivisedViewEvents = eventService.getArchivisedViewEvents();
+        return new ResponseEntity<>(archivisedViewEvents, HttpStatus.OK);
+    }
 }
