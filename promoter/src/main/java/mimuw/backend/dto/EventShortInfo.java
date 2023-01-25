@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -12,6 +14,6 @@ import lombok.Setter;
 public class EventShortInfo {
     private Long id;
     private String name;
-    private String beginDate;
-    private String endDate;
+    private LocalDateTime beginDate;
+    private LocalDateTime endDate;
 }
