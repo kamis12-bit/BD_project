@@ -49,13 +49,18 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getAllEventsSortedByBeginDate() {
-        return eventRepository.getAllEventsSortedByBeginDate();
+    public List<Event> getAllUnarchivedEvents() {
+        return eventRepository.getAllUnarchivedEvents();
+    }
+
+    @Override
+    public List<Event> getAllArchivedEvents() {
+        return eventRepository.getAllArchivedEvents();
     }
 
     @Override
     public List<MainViewEvent> getMainViewEvents() {
-        List<Event> events = eventRepository.getAllEventsSortedByBeginDate();
+        List<Event> events = eventRepository.getAllUnarchivedEvents();
         List<MainViewEvent> mainViewEvents = new ArrayList<>();
 
         for (Event event: events) {

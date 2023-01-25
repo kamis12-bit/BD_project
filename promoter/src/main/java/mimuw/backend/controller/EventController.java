@@ -51,9 +51,15 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
-    @GetMapping("/all-sorted")
-    public ResponseEntity<List<Event>> getAllEventsSortedByBeginDate() {
-        List<Event> events = eventService.getAllEventsSortedByBeginDate();
+    @GetMapping("/all-unarchived")
+    public ResponseEntity<List<Event>> getAllUnarchivedEvents() {
+        List<Event> events = eventService.getAllUnarchivedEvents();
+        return new ResponseEntity<>(events, HttpStatus.OK);
+    }
+
+    @GetMapping("/all-archived")
+    public ResponseEntity<List<Event>> getAllArchivedEvents() {
+        List<Event> events = eventService.getAllArchivedEvents();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 

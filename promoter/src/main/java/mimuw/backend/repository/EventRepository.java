@@ -14,5 +14,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE archived = 0 " +
             "ORDER BY begin_date ",
         nativeQuery = true)
-    List<Event> getAllEventsSortedByBeginDate();
+    List<Event> getAllUnarchivedEvents();
+
+    @Query(
+        value =
+            "SELECT * FROM promoter_event " +
+            "WHERE archived = 1 " +
+            "ORDER BY begin_date ",
+        nativeQuery = true)
+    List<Event> getAllArchivedEvents();
 }
