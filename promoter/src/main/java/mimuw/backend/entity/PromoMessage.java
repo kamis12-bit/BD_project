@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,7 +24,7 @@ public class PromoMessage {
     private String name;
 
     @Column(columnDefinition = "DATE NOT NULL")
-    private String publicationDate;
+    private LocalDateTime publicationDate;
 
     @Column(columnDefinition = "NUMBER(1) NOT NULL")
     private Integer published;

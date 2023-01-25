@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,10 +27,10 @@ public class Event {
     private String description;
 
     @Column(columnDefinition = "DATE NOT NULL")
-    private String beginDate;
+    private LocalDateTime beginDate;
 
     @Column(columnDefinition = "DATE NOT NULL")
-    private String endDate;
+    private LocalDateTime endDate;
 
     @Column(columnDefinition = "NUMBER(1) NOT NULL")
     private Integer archived;
