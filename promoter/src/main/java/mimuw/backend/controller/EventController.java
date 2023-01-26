@@ -24,7 +24,6 @@ public class EventController {
     @PostMapping("/create")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         Event createdEvent = eventService.createEvent(event);
-//        Event createdEvent = new Event();
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
 
@@ -32,7 +31,6 @@ public class EventController {
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event event) {
         event.setId(id);
         Event updatedEvent = eventService.updateEvent(event);
-//        Event updatedEvent = new Event();
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
 
@@ -47,14 +45,12 @@ public class EventController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Event event = eventService.getEventById(id);
-//        Event event = new Event();
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-//        List<Event> events = List.of(new Event(), new Event());
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 

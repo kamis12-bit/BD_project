@@ -28,6 +28,8 @@ public class DescriptionController {
         return new ResponseEntity<>(updatedDescription, HttpStatus.OK);
     }
 
+    // TODO: We should set null in the promoMessage that the description belongs to 
+    //       or not allow deleting descriptions without deleting promoMessages.
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDescription(@PathVariable Long id) {
         descriptionService.deleteDescription(id);

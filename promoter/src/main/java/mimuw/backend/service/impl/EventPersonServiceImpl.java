@@ -53,6 +53,4 @@ public class EventPersonServiceImpl implements EventPersonService{
     public Integer countEventPersonsByPerson(Long personId) {
         return eventPersonRepository.countEventPersonsByPerson(personId);
     }
-
-    
 }

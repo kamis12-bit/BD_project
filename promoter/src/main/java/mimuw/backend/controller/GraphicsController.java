@@ -28,6 +28,8 @@ public class GraphicsController {
         return new ResponseEntity<>(updatedGraphics, HttpStatus.OK);
     }
 
+    // TODO: We should set null in the promoMessage that the graphics belongs to 
+    //       or not allow deleting graphics without deleting promoMessages.
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
         graphicsService.deleteGraphics(id);
