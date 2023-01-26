@@ -19,6 +19,22 @@ public class EventServiceImpl implements EventService {
     private PersonService personService;
     private PromoMessageService promoMessageService;
 
+    private List<MainViewEvent> createResultForSelectedEvents(List<Event> events) {
+        List<MainViewEvent> mainViewEvents = new ArrayList<>();
+
+        for (Event event: events) {
+            MainViewEvent mainViewEvent = new MainViewEvent();
+            mainViewEvent.setId(event.getId());
+            mainViewEvent.setName(event.getName());
+            mainViewEvent.setBeginDate(event.getBeginDate());
+            mainViewEvent.setEndDate(event.getEndDate());
+            mainViewEvent.setPersons(personService.getPersonsByEventId(event.getId()));
+            mainViewEvent.setIsPublished(promoMessageService.isPromoMessagePublishedByEvent(event.getId()));
+            mainViewEvents.add(mainViewEvent);
+        }
+        return mainViewEvents;
+    }
+
     @Override
     public Event createEvent(Event event) {
         return eventRepository.save(event);
@@ -58,22 +74,6 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<Event> getAllArchivedEvents() {
         return eventRepository.getAllArchivedEvents();
-    }
-
-    private List<MainViewEvent> createResultForSelectedEvents(List<Event> events) {
-        List<MainViewEvent> mainViewEvents = new ArrayList<>();
-
-        for (Event event: events) {
-            MainViewEvent mainViewEvent = new MainViewEvent();
-            mainViewEvent.setId(event.getId());
-            mainViewEvent.setName(event.getName());
-            mainViewEvent.setBeginDate(event.getBeginDate());
-            mainViewEvent.setEndDate(event.getEndDate());
-            mainViewEvent.setPersons(personService.getPersonsByEventId(event.getId()));
-            mainViewEvent.setIsPublished(promoMessageService.isPromoMessagePublishedByEvent(event.getId()));
-            mainViewEvents.add(mainViewEvent);
-        }
-        return mainViewEvents;
     }
 
     @Override

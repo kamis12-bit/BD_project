@@ -42,4 +42,9 @@ public class GraphicsServiceImpl implements GraphicsService {
     public List<Graphics> getAllGraphics() {
         return graphicsRepository.findAll();
     }
+
+    @Override
+    public Integer countGraphicsBySupervisor(Long personId) {
+        return graphicsRepository.countGraphicsBySupervisor(personId);
+    }
 }

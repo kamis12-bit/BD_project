@@ -3,6 +3,8 @@ package mimuw.backend.controller;
 import lombok.AllArgsConstructor;
 import mimuw.backend.entity.MessageType;
 import mimuw.backend.service.MessageTypeService;
+import mimuw.backend.service.PromoMessageService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/message-type")
 public class MessageTypeController {
     private MessageTypeService messageTypeService;
+    private PromoMessageService promoMessageService;
 
     @PostMapping("/create")
     public ResponseEntity<MessageType> createMessageType(@RequestBody MessageType messageType) {
@@ -29,7 +32,13 @@ public class MessageTypeController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
+    public ResponseEntity<String> deleteMessageType(@PathVariable Long id) {
+        Integer count = promoMessageService.countPromoMessagesByType(id);
+        if (count > 0)
+            return new ResponseEntity<>(
+                "Cannot delete MessageType, because it is used by " + count + " PromoMessage(s)!", 
+                HttpStatus.BAD_REQUEST);
+
         messageTypeService.deleteMessageType(id);
         return new ResponseEntity<>("MessageType successfully deleted!", HttpStatus.OK);
     }

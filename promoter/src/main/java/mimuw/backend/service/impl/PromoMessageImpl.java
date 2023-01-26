@@ -6,6 +6,8 @@ import mimuw.backend.repository.PromoMessageRepository;
 import mimuw.backend.service.PromoMessageService;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 
 @Service
@@ -35,6 +37,12 @@ public class PromoMessageImpl implements PromoMessageService {
     public void deletePromoMessage(Long id) {
         promoMessageRepository.deleteById(id);
     }
+    
+    @Override
+    @Transactional
+    public void deletePromoMessagesByEvent(Long eventId) {
+        promoMessageRepository.deletePromoMessagesByEvent(eventId);
+    }
 
     @Override
     public PromoMessage getPromoMessageById(Long id) {
@@ -51,5 +59,10 @@ public class PromoMessageImpl implements PromoMessageService {
         Integer sumAll = promoMessageRepository.countAllPromoMessagesByEvent(eventId);
         Integer sumPublished = promoMessageRepository.countPublishedPromoMessagesByEvent(eventId);
         return sumAll == sumPublished ? 1 : 0;
+    }
+
+    @Override
+    public Integer countPromoMessagesByType(Long messageTypeId) {
+        return promoMessageRepository.countPromoMessagesByType(messageTypeId);
     }
 }

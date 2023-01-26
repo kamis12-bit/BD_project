@@ -13,4 +13,6 @@ public interface DescriptionService {
     Description getDescriptionById(Long id);
 
     List<Description> getAllDescriptions();
+
+    Integer countDescriptionsBySupervisor(Long personId);
 }
