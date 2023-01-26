@@ -3,7 +3,10 @@ package mimuw.backend.controller;
 import lombok.AllArgsConstructor;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
+import mimuw.backend.service.EventPersonService;
 import mimuw.backend.service.EventService;
+import mimuw.backend.service.PromoMessageService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,8 @@ import java.util.List;
 @RequestMapping("/api/event")
 public class EventController {
     private EventService eventService;
+    private EventPersonService eventPersonService;
+    private PromoMessageService promoMessageService;
 
     @PostMapping("/create")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
@@ -33,6 +38,8 @@ public class EventController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
+        eventPersonService.deleteEventPersonsByEvent(id);
+        promoMessageService.deletePromoMessagesByEvent(id);
         eventService.deleteEvent(id);
         return new ResponseEntity<>("Event successfully deleted!", HttpStatus.OK);
     }

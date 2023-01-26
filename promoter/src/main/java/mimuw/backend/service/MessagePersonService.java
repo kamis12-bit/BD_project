@@ -10,7 +10,11 @@ public interface MessagePersonService {
 
     void deleteMessagePerson(Long id);
 
+    void deleteMessagePersonsByPromoMessage(Long promoMessageId);
+
     MessagePerson getMessagePersonById(Long id);
 
     List<MessagePerson> getAllMessagePersons();
+
+    Integer countMessagePersonsByPerson(Long personId);
 }

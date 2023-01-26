@@ -2,6 +2,10 @@ package mimuw.backend.controller;
 
 import lombok.AllArgsConstructor;
 import mimuw.backend.entity.Person;
+import mimuw.backend.service.DescriptionService;
+import mimuw.backend.service.EventPersonService;
+import mimuw.backend.service.GraphicsService;
+import mimuw.backend.service.MessagePersonService;
 import mimuw.backend.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +19,14 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 public class PersonController {
     private PersonService personService;
+    private GraphicsService graphicsService;
+    private DescriptionService descriptionService;
+    private EventPersonService eventPersonService;
+    private MessagePersonService messagePersonService;
 
     @PostMapping("/create")
     public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         Person createdPerson = personService.createPerson(person);
-//        Person createdPerson = new Person();
         return new ResponseEntity<>(createdPerson, HttpStatus.CREATED);
     }
 
@@ -27,42 +34,37 @@ public class PersonController {
     public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person person) {
         person.setId(id);
         Person updatedPerson = personService.updatePerson(person);
-//        Person updatedPerson = new Person();
         return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePerson(@PathVariable Long id) {
+        Integer countGraphics = graphicsService.countGraphicsBySupervisor(id);
+        Integer countDescriptions = descriptionService.countDescriptionsBySupervisor(id);
+        Integer countEvent = eventPersonService.countEventPersonsByPerson(id);
+        Integer countMessages = messagePersonService.countMessagePersonsByPerson(id);
+
+        if (countGraphics > 0 || countDescriptions > 0 || countEvent > 0 || countMessages > 0) {
+            return new ResponseEntity<>(
+                "Cannot delete Person, because it is responsible for " + countEvent + " Events, " 
+                    + countMessages + " PromoMessages, " + countGraphics + " Graphics and " 
+                    + countDescriptions + " Descriptions!",
+                HttpStatus.BAD_REQUEST);
+        }
+
         personService.deletePerson(id);
         return new ResponseEntity<>("Person successfully deleted!", HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
-        // Person personToCreate = new Person(newID++, "A", "B", "C");
-        // personService.createPerson(personToCreate);
         Person person = personService.getPersonById(id);
-//        Person person = new Person();
-//        if (id == 1) {
-//            person.setId(1L);
-//            person.setFirstName("Wojciech");
-//            person.setLastName("Weremczuk");
-//            person.setAvatar("img_avatar1.png");
-//        } else {
-//            person.setId(2L);
-//            person.setFirstName("Krzysztof");
-//            person.setLastName("Szostek");
-//            person.setAvatar("img_avatar2.png");
-//        }
         return new ResponseEntity<>(person, HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Person>> getAllPersons() {
          List<Person> persons = personService.getAllPersons();
-//        List<Person> persons = List.of(
-//                new Person(1L, "Wojciech", "Weremczuk", "img_avatar1.png"),
-//                new Person(2L, "Krzysztof", "Szostek", "img_avatar2.png"));
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 

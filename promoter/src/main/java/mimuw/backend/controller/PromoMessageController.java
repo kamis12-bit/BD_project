@@ -2,6 +2,9 @@ package mimuw.backend.controller;
 
 import lombok.AllArgsConstructor;
 import mimuw.backend.entity.PromoMessage;
+import mimuw.backend.service.DescriptionService;
+import mimuw.backend.service.GraphicsService;
+import mimuw.backend.service.MessagePersonService;
 import mimuw.backend.service.PromoMessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,9 @@ import java.util.List;
 @RequestMapping("/api/promo-message")
 public class PromoMessageController {
     private PromoMessageService promoMessageService;
+    private MessagePersonService messagePersonService;
+    private GraphicsService graphicsService;
+    private DescriptionService descriptionService;
 
     @PostMapping("/create")
     public ResponseEntity<PromoMessage> createPromoMessage(@RequestBody PromoMessage promoMessage) {
@@ -30,6 +36,13 @@ public class PromoMessageController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deletePromoMessage(@PathVariable Long id) {
+        messagePersonService.deleteMessagePersonsByPromoMessage(id);
+        PromoMessage deletedPromoMessage = promoMessageService.getPromoMessageById(id);
+        if (deletedPromoMessage.getGraphics() != null)
+            graphicsService.deleteGraphics(deletedPromoMessage.getGraphics());
+        if (deletedPromoMessage.getDescription() != null)
+            descriptionService.deleteDescription(deletedPromoMessage.getDescription());
+
         promoMessageService.deletePromoMessage(id);
         return new ResponseEntity<>("Promo message successfully deleted!", HttpStatus.OK);
     }

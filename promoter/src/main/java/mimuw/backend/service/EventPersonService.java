@@ -10,7 +10,11 @@ public interface EventPersonService {
 
     void deleteEventPerson(Long id);
 
+    void deleteEventPersonsByEvent(Long eventId);
+
     EventPerson getEventPersonById(Long id);
 
     List<EventPerson> getAllEventPersons();
+
+    Integer countEventPersonsByPerson(Long personId);
 }

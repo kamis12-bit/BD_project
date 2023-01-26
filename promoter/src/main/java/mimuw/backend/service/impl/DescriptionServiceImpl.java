@@ -42,4 +42,9 @@ public class DescriptionServiceImpl implements DescriptionService {
     public List<Description> getAllDescriptions() {
         return descriptionRepository.findAll();
     }
+
+    @Override
+    public Integer countDescriptionsBySupervisor(Long personId) {
+        return descriptionRepository.countDescriptionsBySupervisor(personId);
+    }
 }

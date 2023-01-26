@@ -13,4 +13,6 @@ public interface GraphicsService {
     Graphics getGraphicsById(Long id);
 
     List<Graphics> getAllGraphics();
+
+    Integer countGraphicsBySupervisor(Long personId);
 }
