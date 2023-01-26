@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import '../App.css'
-import { Link, Route, Routes } from 'react-router-dom'
-import PersonComponent from './PersonComponent'
+import { Link } from 'react-router-dom'
+import GoToMenu from './GoToMenu.js'
 
 class ListPersons extends Component {
   constructor(props) {
@@ -37,15 +37,10 @@ class ListPersons extends Component {
               <Link to={'/modify-person/' + person.id} className='App-button'>
                 {person.firstName} {person.lastName} {person.avatar}
               </Link>
-              {/* <Routes>
-                <Route
-                  path={'/modify-person/' + person.id}
-                  element={<PersonComponent id={person.id} />}
-                />
-              </Routes> */}
             </p>
           )
         })}
+        <GoToMenu />{' '}
       </div>
     )
   }

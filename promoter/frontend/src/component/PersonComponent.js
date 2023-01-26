@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 import '../App.css'
 import { useParams } from 'react-router-dom'
+import GoToMenu from './GoToMenu'
+import ButtonForm from './ButtonForm'
 
 export function withRouter(Children) {
   return (props) => {
@@ -20,6 +22,37 @@ class PersonComponent extends React.Component {
       lastName: '',
       avatar: '',
     }
+
+    this.changeFirstName = this.changeFirstName.bind(this)
+    this.changeLastName = this.changeLastName.bind(this)
+    this.changeAvatar = this.changeAvatar.bind(this)
+  }
+
+  changeFirstName(event) {
+    this.setState({ firstName: event })
+  }
+  changeLastName(event) {
+    this.setState({ lastName: event })
+  }
+  changeAvatar(event) {
+    this.setState({ avatar: event })
+  }
+
+  update = () => {
+    const { id, firstName, lastName, avatar } = this.state
+    axios
+      .put('/api/person/update/' + this.state.id, {
+        id: id,
+        firstName: firstName,
+        lastName: lastName,
+        avatar: avatar,
+      })
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   componentDidMount() {
@@ -46,12 +79,23 @@ class PersonComponent extends React.Component {
   render() {
     return (
       <div>
-        <p>
-          Person:
-          <button className='App-button'>{this.state.firstName}</button>
-          <button className='App-button'> {this.state.lastName}</button>
-          <button className='App-button'>{this.state.avatar}</button>
-        </p>
+        Person:
+        <ButtonForm
+          value={this.state.firstName}
+          handleSubmit={this.changeFirstName}
+        />
+        <ButtonForm
+          value={this.state.lastName}
+          handleSubmit={this.changeLastName}
+        />
+        <ButtonForm
+          value={this.state.avatar}
+          handleSubmit={this.changeAvatar}
+        />
+        <GoToMenu />
+        <button className='App-button' onClick={this.update}>
+          Update
+        </button>
       </div>
     )
   }
