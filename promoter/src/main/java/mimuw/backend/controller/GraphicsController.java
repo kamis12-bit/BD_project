@@ -3,6 +3,7 @@ package mimuw.backend.controller;
 import lombok.AllArgsConstructor;
 import mimuw.backend.entity.Graphics;
 import mimuw.backend.service.GraphicsService;
+import mimuw.backend.service.PromoMessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/graphics")
 public class GraphicsController {
     private GraphicsService graphicsService;
+    private PromoMessageService promoMessageService;
 
     @PostMapping("/create")
     public ResponseEntity<Graphics> createGraphics(@RequestBody Graphics graphics) {
@@ -30,6 +32,7 @@ public class GraphicsController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
+        promoMessageService.deleteGraphicsFromPromoMessage(id);
         graphicsService.deleteGraphics(id);
         return new ResponseEntity<>("Graphics successfully deleted!", HttpStatus.OK);
     }
@@ -44,5 +47,11 @@ public class GraphicsController {
     public ResponseEntity<List<Graphics>> getAllGraphics() {
         List<Graphics> graphics = graphicsService.getAllGraphics();
         return new ResponseEntity<>(graphics, HttpStatus.OK);
+    }
+
+    @GetMapping("/duplicate/{id}")
+    public ResponseEntity<Graphics> duplicateGraphics(@PathVariable Long id) {
+        Graphics newGraphics = graphicsService.duplicateGraphics(id);
+        return new ResponseEntity<>(newGraphics, HttpStatus.CREATED);
     }
 }

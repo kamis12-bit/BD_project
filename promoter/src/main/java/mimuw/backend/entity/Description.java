@@ -29,4 +29,12 @@ public class Description {
 
     @Column(columnDefinition = "NUMBER(10) NOT NULL")
     private Long supervisor;
+
+    public Description(Description description) {
+        this.id = null;
+        this.state = description.getState();
+        this.reason = description.getReason();
+        this.descriptionContent = description.getDescriptionContent();
+        this.supervisor = description.getSupervisor();
+    }
 }

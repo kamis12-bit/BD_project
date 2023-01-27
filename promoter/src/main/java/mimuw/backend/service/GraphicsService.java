@@ -15,4 +15,6 @@ public interface GraphicsService {
     List<Graphics> getAllGraphics();
 
     Integer countGraphicsBySupervisor(Long personId);
+
+    Graphics duplicateGraphics(Long id);
 }

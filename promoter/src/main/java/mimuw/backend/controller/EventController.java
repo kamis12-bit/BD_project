@@ -24,7 +24,6 @@ public class EventController {
     @PostMapping("/create")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         Event createdEvent = eventService.createEvent(event);
-//        Event createdEvent = new Event();
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
 
@@ -32,7 +31,6 @@ public class EventController {
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event event) {
         event.setId(id);
         Event updatedEvent = eventService.updateEvent(event);
-//        Event updatedEvent = new Event();
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
     }
 
@@ -47,14 +45,12 @@ public class EventController {
     @GetMapping("/get/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Event event = eventService.getEventById(id);
-//        Event event = new Event();
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
-//        List<Event> events = List.of(new Event(), new Event());
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
@@ -76,9 +72,31 @@ public class EventController {
         return new ResponseEntity<>(mainViewEvents, HttpStatus.OK);
     }
 
-    @GetMapping("/archivised-view")
-    public ResponseEntity<List<MainViewEvent>> getArchivisedViewEvents() {
-        List<MainViewEvent> archivisedViewEvents = eventService.getArchivisedViewEvents();
-        return new ResponseEntity<>(archivisedViewEvents, HttpStatus.OK);
+    @GetMapping("/archived-view")
+    public ResponseEntity<List<MainViewEvent>> getArchivedViewEvents() {
+        List<MainViewEvent> archivedViewEvents = eventService.getArchivedViewEvents();
+        return new ResponseEntity<>(archivedViewEvents, HttpStatus.OK);
+    }
+
+    @GetMapping("/archive/{id}")
+    public ResponseEntity<Event> archiveEvent(@PathVariable Long id){
+        Event event = eventService.getEventById(id);
+        event.setArchived(1);
+        Event updatedEvent = eventService.updateEvent(event);
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+    }
+
+    @GetMapping("/unarchive/{id}")
+    public ResponseEntity<Event> unarchiveEvent(@PathVariable Long id){
+        Event event = eventService.getEventById(id);
+        event.setArchived(0);
+        Event updatedEvent = eventService.updateEvent(event);
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+    }
+
+    @GetMapping("duplicate/{id}")
+    public ResponseEntity<Event> duplicateEvent(@PathVariable Long id){
+        Event createdEvent = eventService.duplicateEvent(id);
+        return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
 }

@@ -47,4 +47,10 @@ public class GraphicsServiceImpl implements GraphicsService {
     public Integer countGraphicsBySupervisor(Long personId) {
         return graphicsRepository.countGraphicsBySupervisor(personId);
     }
+
+    @Override
+    public Graphics duplicateGraphics(Long id) {
+        Graphics graphics = getGraphicsById(id);
+        return createGraphics(new Graphics(graphics));
+    }
 }

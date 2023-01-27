@@ -3,6 +3,7 @@ package mimuw.backend.controller;
 import lombok.AllArgsConstructor;
 import mimuw.backend.entity.Description;
 import mimuw.backend.service.DescriptionService;
+import mimuw.backend.service.PromoMessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/description")
 public class DescriptionController {
     private DescriptionService descriptionService;
+    private PromoMessageService promoMessageService;
 
     @PostMapping("/create")
     public ResponseEntity<Description> createDescription(@RequestBody Description description) {
@@ -30,6 +32,7 @@ public class DescriptionController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDescription(@PathVariable Long id) {
+        promoMessageService.deleteDescriptionFromPromoMessage(id);
         descriptionService.deleteDescription(id);
         return new ResponseEntity<>("Description successfully deleted!", HttpStatus.OK);
     }
@@ -44,5 +47,11 @@ public class DescriptionController {
     public ResponseEntity<List<Description>> getAllDescriptions() {
         List<Description> descriptions = descriptionService.getAllDescriptions();
         return new ResponseEntity<>(descriptions, HttpStatus.OK);
+    }
+
+    @GetMapping("/duplicate/{id}")
+    public ResponseEntity<Description> duplicateDescription(@PathVariable Long id) {
+        Description newDescription = descriptionService.duplicateDescription(id);
+        return new ResponseEntity<>(newDescription, HttpStatus.CREATED);
     }
 }

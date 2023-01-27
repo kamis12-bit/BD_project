@@ -40,4 +40,15 @@ public class PromoMessage {
 
     @Column(columnDefinition = "NUMBER(10) NOT NULL")
     private Long hasType;
+
+    public PromoMessage(PromoMessage promoMessage) {
+        this.id = null;
+        this.name = promoMessage.getName();
+        this.publicationDate = promoMessage.getPublicationDate();
+        this.published = promoMessage.getPublished();
+        this.event = promoMessage.getEvent();
+        this.graphics = promoMessage.getGraphics();
+        this.description = promoMessage.getDescription();
+        this.hasType = promoMessage.getHasType();
+    }
 }
