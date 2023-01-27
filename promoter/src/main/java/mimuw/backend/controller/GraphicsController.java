@@ -47,4 +47,10 @@ public class GraphicsController {
         List<Graphics> graphics = graphicsService.getAllGraphics();
         return new ResponseEntity<>(graphics, HttpStatus.OK);
     }
+
+    @GetMapping("/duplicate/{id}")
+    public ResponseEntity<Graphics> duplicateGraphics(@PathVariable Long id) {
+        Graphics newGraphics = graphicsService.duplicateGraphics(id);
+        return new ResponseEntity<>(newGraphics, HttpStatus.CREATED);
+    }
 }

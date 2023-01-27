@@ -15,4 +15,6 @@ public interface DescriptionService {
     List<Description> getAllDescriptions();
 
     Integer countDescriptionsBySupervisor(Long personId);
+
+    Description duplicateDescription(Long id);
 }

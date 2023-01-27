@@ -1,7 +1,13 @@
 package mimuw.backend.service.impl;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.entity.Description;
+import mimuw.backend.entity.Graphics;
+import mimuw.backend.entity.MessagePerson;
 import mimuw.backend.entity.PromoMessage;
+import mimuw.backend.repository.DescriptionRepository;
+import mimuw.backend.repository.GraphicsRepository;
+import mimuw.backend.repository.MessagePersonRepository;
 import mimuw.backend.repository.PromoMessageRepository;
 import mimuw.backend.service.PromoMessageService;
 import org.springframework.stereotype.Service;
@@ -12,8 +18,11 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class PromoMessageImpl implements PromoMessageService {
+public class PromoMessageServiceImpl implements PromoMessageService {
     private PromoMessageRepository promoMessageRepository;
+    private DescriptionRepository descriptionRepository;
+    private GraphicsRepository graphicsRepository;
+    private MessagePersonRepository messagePersonRepository;
 
     @Override
     public PromoMessage createPromoMessage(PromoMessage promoMessage) {
@@ -64,5 +73,31 @@ public class PromoMessageImpl implements PromoMessageService {
     @Override
     public Integer countPromoMessagesByType(Long messageTypeId) {
         return promoMessageRepository.countPromoMessagesByType(messageTypeId);
+    }
+
+    @Override
+    public PromoMessage duplicatePromoMessage(Long id) {
+        PromoMessage newPromoMessage = createPromoMessage(getPromoMessageById(id));
+        Long newId = newPromoMessage.getId();
+        if (newPromoMessage.getDescription() != null) {
+            System.out.println("Description: " + newPromoMessage.getDescription());
+            Description oldDescription = descriptionRepository.findById(newPromoMessage.getDescription()).orElseThrow();
+            Description newDescription = descriptionRepository.save(oldDescription);
+            newPromoMessage.setDescription(newDescription.getId());
+        }
+        if (newPromoMessage.getGraphics() != null) {
+            System.out.println("Graphics: " + newPromoMessage.getGraphics());
+            Graphics oldGraphics = graphicsRepository.findById(newPromoMessage.getGraphics()).orElseThrow();
+            Graphics newGraphics = graphicsRepository.save(oldGraphics);
+            newPromoMessage.setGraphics(newGraphics.getId());
+        }
+        List<Long> personsId = messagePersonRepository.getPersonsIdByPromoMessage(id);
+        for (Long personId: personsId){
+            MessagePerson messagePerson = new MessagePerson();
+            messagePerson.setPerson(personId);
+            messagePerson.setPromoMessage(newId);
+            messagePersonRepository.save(messagePerson);
+        }
+        return newPromoMessage;
     }
 }

@@ -20,4 +20,6 @@ public interface PromoMessageService {
     Integer isPromoMessagePublishedByEvent(Long eventId);
 
     Integer countPromoMessagesByType(Long messageTypeId);
+
+    PromoMessage duplicatePromoMessage(Long id);
 }

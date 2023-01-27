@@ -47,4 +47,9 @@ public class DescriptionServiceImpl implements DescriptionService {
     public Integer countDescriptionsBySupervisor(Long personId) {
         return descriptionRepository.countDescriptionsBySupervisor(personId);
     }
+
+    @Override
+    public Description duplicateDescription(Long id) {
+        return createDescription(getDescriptionById(id));
+    }
 }

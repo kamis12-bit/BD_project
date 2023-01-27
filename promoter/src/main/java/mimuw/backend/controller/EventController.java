@@ -77,4 +77,20 @@ public class EventController {
         List<MainViewEvent> archivisedViewEvents = eventService.getArchivisedViewEvents();
         return new ResponseEntity<>(archivisedViewEvents, HttpStatus.OK);
     }
+
+    @GetMapping("/archive/{id}")
+    public ResponseEntity<Event> archiveEvent(@PathVariable Long id){
+        Event event = eventService.getEventById(id);
+        event.setArchived(1);
+        Event updatedEvent = eventService.updateEvent(event);
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+    }
+
+    @GetMapping("/unarchive/{id}")
+    public ResponseEntity<Event> unarchiveEvent(@PathVariable Long id){
+        Event event = eventService.getEventById(id);
+        event.setArchived(0);
+        Event updatedEvent = eventService.updateEvent(event);
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+    }
 }

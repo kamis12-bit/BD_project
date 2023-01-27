@@ -58,4 +58,10 @@ public class PromoMessageController {
         List<PromoMessage> promoMessages = promoMessageService.getAllPromoMessages();
         return new ResponseEntity<>(promoMessages, HttpStatus.OK);
     }
+
+    @GetMapping("/duplicate/{id}")
+    public ResponseEntity<PromoMessage> duplicatePromoMessage(@PathVariable Long id) {
+        PromoMessage newPromoMessage = promoMessageService.duplicatePromoMessage(id);
+        return new ResponseEntity<>(newPromoMessage, HttpStatus.CREATED);
+    }
 }

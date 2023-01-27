@@ -47,4 +47,10 @@ public class DescriptionController {
         List<Description> descriptions = descriptionService.getAllDescriptions();
         return new ResponseEntity<>(descriptions, HttpStatus.OK);
     }
+
+    @GetMapping("/duplicate/{id}")
+    public ResponseEntity<Description> duplicateDescription(@PathVariable Long id) {
+        Description newDescription = descriptionService.duplicateDescription(id);
+        return new ResponseEntity<>(newDescription, HttpStatus.CREATED);
+    }
 }
