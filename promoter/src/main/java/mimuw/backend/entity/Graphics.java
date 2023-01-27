@@ -29,4 +29,12 @@ public class Graphics {
 
     @Column(columnDefinition = "NUMBER(10) NOT NULL")
     private Long supervisor;
+
+    public Graphics(Graphics graphics) {
+        this.id = graphics.getId();
+        this.state = graphics.getState();
+        this.reason = graphics.getReason();
+        this.graphicsContent = graphics.getGraphicsContent();
+        this.supervisor = graphics.getSupervisor();
+    }
 }

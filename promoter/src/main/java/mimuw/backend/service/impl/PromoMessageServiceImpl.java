@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -67,7 +68,7 @@ public class PromoMessageServiceImpl implements PromoMessageService {
     public Integer isPromoMessagePublishedByEvent(Long eventId) {
         Integer sumAll = promoMessageRepository.countAllPromoMessagesByEvent(eventId);
         Integer sumPublished = promoMessageRepository.countPublishedPromoMessagesByEvent(eventId);
-        return sumAll == sumPublished ? 1 : 0;
+        return Objects.equals(sumAll, sumPublished) ? 1 : 0;
     }
 
     @Override
@@ -77,20 +78,24 @@ public class PromoMessageServiceImpl implements PromoMessageService {
 
     @Override
     public PromoMessage duplicatePromoMessage(Long id) {
-        PromoMessage newPromoMessage = createPromoMessage(getPromoMessageById(id));
-        Long newId = newPromoMessage.getId();
-        if (newPromoMessage.getDescription() != null) {
-            System.out.println("Description: " + newPromoMessage.getDescription());
-            Description oldDescription = descriptionRepository.findById(newPromoMessage.getDescription()).orElseThrow();
-            Description newDescription = descriptionRepository.save(oldDescription);
+        PromoMessage promoMessage = getPromoMessageById(id);
+        PromoMessage newPromoMessage = new PromoMessage(promoMessage);
+
+        if (promoMessage.getDescription() != null) {
+            Description oldDescription = descriptionRepository.findById(promoMessage.getDescription()).orElseThrow();
+            Description newDescription = descriptionRepository.save(new Description(oldDescription));
             newPromoMessage.setDescription(newDescription.getId());
         }
-        if (newPromoMessage.getGraphics() != null) {
-            System.out.println("Graphics: " + newPromoMessage.getGraphics());
-            Graphics oldGraphics = graphicsRepository.findById(newPromoMessage.getGraphics()).orElseThrow();
-            Graphics newGraphics = graphicsRepository.save(oldGraphics);
+
+        if (promoMessage.getGraphics() != null) {
+            Graphics oldGraphics = graphicsRepository.findById(promoMessage.getGraphics()).orElseThrow();
+            Graphics newGraphics = graphicsRepository.save(new Graphics(oldGraphics));
             newPromoMessage.setGraphics(newGraphics.getId());
         }
+
+        PromoMessage createdPromoMessage = promoMessageRepository.save(newPromoMessage);
+        Long newId = createdPromoMessage.getId();
+
         List<Long> personsId = messagePersonRepository.getPersonsIdByPromoMessage(id);
         for (Long personId: personsId){
             MessagePerson messagePerson = new MessagePerson();
@@ -98,6 +103,6 @@ public class PromoMessageServiceImpl implements PromoMessageService {
             messagePerson.setPromoMessage(newId);
             messagePersonRepository.save(messagePerson);
         }
-        return newPromoMessage;
+        return createdPromoMessage;
     }
 }

@@ -50,6 +50,7 @@ public class GraphicsServiceImpl implements GraphicsService {
 
     @Override
     public Graphics duplicateGraphics(Long id) {
-        return createGraphics(getGraphicsById(id));
+        Graphics graphics = getGraphicsById(id);
+        return createGraphics(new Graphics(graphics));
     }
 }
