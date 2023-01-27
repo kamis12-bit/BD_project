@@ -68,10 +68,8 @@ const Main = () => (
     <Route path='calendar' element={<CalendarComponent />} />
     <Route path='things-to-check' element={<ThingsToCheck />} />
     <Route path='message-types' element={<MessageTypesComponent />} />
+    <Route path='add-person' element={<AddPerson />} />
   </Routes>
 )
-
-/* Hello, {table.firstName} {table.lastName} this is
-                the backend speaking and this is your avatar: {table.image} */
 
 export default App
