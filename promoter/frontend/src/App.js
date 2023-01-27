@@ -3,11 +3,13 @@ import logo from './logo.svg'
 import './App.css'
 import PersonComponent from './component/PersonComponent'
 import ListPersons from './component/ListPersons'
+import AddPerson from './component/AddPerson'
 import MainViewComponent from './component/MainViewComponent'
 import ArchiveComponent from './component/ArchiveComponent'
 import CalendarComponent from './component/CalendarComponent'
 import ThingsToCheck from './component/ThingsToCheck'
 import MessageTypesComponent from './component/MessageTypesComponent'
+import DetailViewComponent from './component/DetailViewComponent'
 import { Link, Routes, Route } from 'react-router-dom'
 
 const App = () => (
@@ -69,6 +71,7 @@ const Main = () => (
     <Route path='things-to-check' element={<ThingsToCheck />} />
     <Route path='message-types' element={<MessageTypesComponent />} />
     <Route path='add-person' element={<AddPerson />} />
+    <Route path='detail-view/:id' element={<DetailViewComponent />} />
   </Routes>
 )
 

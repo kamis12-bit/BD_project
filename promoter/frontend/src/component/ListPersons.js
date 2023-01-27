@@ -35,7 +35,8 @@ class ListPersons extends Component {
           return (
             <p>
               <Link to={'/person/' + person.id} className='App-button'>
-                {person.firstName} {person.lastName} {person.avatar}
+                {person.firstName} {person.lastName} <br />
+                {person.avatar}
               </Link>
             </p>
           )

@@ -1,11 +1,13 @@
 package mimuw.backend.service.impl;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.dto.DetailViewEvent;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.entity.EventPerson;
 import mimuw.backend.repository.EventPersonRepository;
 import mimuw.backend.repository.EventRepository;
+import mimuw.backend.repository.PromoMessageRepository;
 import mimuw.backend.service.EventService;
 import mimuw.backend.service.PersonService;
 import mimuw.backend.service.PromoMessageService;
@@ -18,8 +20,8 @@ import java.util.List;
 @AllArgsConstructor
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
-
     private EventPersonRepository eventPersonRepository;
+    private PromoMessageRepository promoMessageRepository;
     private PersonService personService;
     private PromoMessageService promoMessageService;
 
@@ -108,5 +110,21 @@ public class EventServiceImpl implements EventService {
 
         promoMessageService.duplicatePromoMessagesByEvent(id, newId);
         return createdEvent;
+    }
+
+    @Override
+    public DetailViewEvent getDetailViewEvent(Long id) {
+        Event event = getEventById(id);
+        DetailViewEvent detailViewEvent = new DetailViewEvent();
+        detailViewEvent.setId(event.getId());
+        detailViewEvent.setName(event.getName());
+        detailViewEvent.setDescription(event.getDescription());
+        detailViewEvent.setBeginDate(event.getBeginDate());
+        detailViewEvent.setEndDate(event.getEndDate());
+        detailViewEvent.setArchived(event.getArchived());
+        detailViewEvent.setIsPublished(promoMessageService.isPromoMessagePublishedByEvent(event.getId()));
+        detailViewEvent.setPersons(personService.getPersonsByEventId(event.getId()));
+        detailViewEvent.setPromoMessages(promoMessageRepository.getPromoMessagesByEvent(event.getId()));
+        return detailViewEvent;
     }
 }
