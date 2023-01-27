@@ -42,6 +42,16 @@ class MainViewComponent extends React.Component {
                   </div> <br />
                   beginDate: {mainView.beginDate} <br />
                   endDate: {mainView.endDate} <br />
+                  <div>
+                    {mainView.persons.map((person) => {
+                      return (
+                      <p>
+                        {person.firstName} {person.lastName} <br />
+                        {person.avatar}
+                      </p>
+                      )
+                    })}
+                  </div>
                 </div>
               </Link>
             </p>
