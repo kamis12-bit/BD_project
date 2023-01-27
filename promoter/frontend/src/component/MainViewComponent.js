@@ -34,9 +34,11 @@ class MainViewComponent extends React.Component {
         {this.state.mainView.map((mainView) => {
           return (
             <p>
-              <div className='App-button'>
-                {mainView.name} {mainView.beginDate} {mainView.endDate} {mainView.isPublished}
-              </div>
+              <Link to={'/detail-view/' + mainView.id}>
+                <div className='App-button'>
+                  {mainView.name} {mainView.beginDate} {mainView.endDate} {mainView.isPublished}
+                </div>
+              </Link>
             </p>
           )
         })}

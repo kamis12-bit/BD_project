@@ -1,5 +1,6 @@
 package mimuw.backend.service;
 
+import mimuw.backend.dto.DetailViewEvent;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import java.util.List;
@@ -25,4 +26,6 @@ public interface EventService {
     List<MainViewEvent> getArchivedViewEvents();
 
     Event duplicateEvent(Long id);
+
+    DetailViewEvent getDetailViewEvent(Long id);
 }

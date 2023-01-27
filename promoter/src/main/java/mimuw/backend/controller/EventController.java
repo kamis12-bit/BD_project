@@ -1,6 +1,7 @@
 package mimuw.backend.controller;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.dto.DetailViewEvent;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
 import mimuw.backend.service.EventPersonService;
@@ -98,5 +99,11 @@ public class EventController {
     public ResponseEntity<Event> duplicateEvent(@PathVariable Long id){
         Event createdEvent = eventService.duplicateEvent(id);
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
+    }
+
+    @GetMapping("detail-view/{id}")
+    public ResponseEntity<DetailViewEvent> getDetailViewEvent(@PathVariable Long id){
+        DetailViewEvent detailViewEvent = eventService.getDetailViewEvent(id);
+        return new ResponseEntity<>(detailViewEvent, HttpStatus.OK);
     }
 }
