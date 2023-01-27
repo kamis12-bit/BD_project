@@ -54,7 +54,23 @@ class DetailViewComponent extends React.Component {
       <div>
         <p>
           <div className='App-button'>
-            {this.state.id} {this.state.name} {this.state.description} {this.state.beginDate} {this.state.endDate} {this.state.isPublished}
+            <div>
+              {this.state.name}
+              {this.state.isPublished ? '   ✅' : '   ❌'}
+            </div> <br />
+            <div> {this.state.description} </div> <br />
+            beginDate: {this.state.beginDate} <br />
+            endDate: {this.state.endDate} <br />
+            <div>
+              {this.state.persons.map((person) => {
+                return (
+                <p>
+                  {person.firstName} {person.lastName} <br />
+                  {person.avatar}
+                </p>
+                )
+              })}
+            </div>
           </div>
         </p>
         <GoToMenu />{' '}

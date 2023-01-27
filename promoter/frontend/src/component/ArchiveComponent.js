@@ -34,14 +34,26 @@ class ArchiveComponent extends React.Component {
         {this.state.archives.map((archive) => {
           return (
             <p>
-              <div className='App-button'>
-                <div>
-                  {archive.name}
-                  {archive.isPublished ? '   ✅' : '   ❌'}
-                </div> <br />
-                beginDate: {archive.beginDate} <br />
-                endDate: {archive.endDate} <br />
-              </div>
+              <Link to={'/detail-view/' + archive.id}>
+                <div className='App-button'>
+                  <div>
+                    {archive.name}
+                    {archive.isPublished ? '   ✅' : '   ❌'}
+                  </div> <br />
+                  beginDate: {archive.beginDate} <br />
+                  endDate: {archive.endDate} <br />
+                  <div>
+                    {archive.persons.map((person) => {
+                      return (
+                      <p>
+                        {person.firstName} {person.lastName} <br />
+                        {person.avatar}
+                      </p>
+                      )
+                    })}
+                  </div>
+                </div>
+              </Link>
             </p>
           )
         })}
