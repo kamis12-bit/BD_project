@@ -23,7 +23,7 @@ const App = () => (
 
 const Home = () => (
   <div>
-    <div
+    <p
       style={{
         display: 'inline-block',
         width: '300px',
@@ -34,7 +34,9 @@ const Home = () => (
         textAlign: 'center',
         textDecoration: 'none'
       }}
-     > This is the home page </div>
+     > This is the home page </p>
+
+     <br />
 
     <p>
       <Link to={'/main-view'} className='App-button-menu'> Main View </Link>

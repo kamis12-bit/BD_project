@@ -35,7 +35,12 @@ class ArchiveComponent extends React.Component {
           return (
             <p>
               <div className='App-button'>
-                {archive.name} {archive.beginDate} {archive.endDate} {archive.isPublished}
+                <div>
+                  {archive.name}
+                  {archive.isPublished ? '   ✅' : '   ❌'}
+                </div> <br />
+                beginDate: {archive.beginDate} <br />
+                endDate: {archive.endDate} <br />
               </div>
             </p>
           )
