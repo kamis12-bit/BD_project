@@ -4,6 +4,7 @@ import logo from './logo.svg'
 import './App.css'
 import PersonComponent from './component/PersonComponent'
 import ListPersons from './component/ListPersons'
+import AddPerson from './component/AddPerson'
 import { Link, Routes, Route } from 'react-router-dom'
 
 const App = () => (
