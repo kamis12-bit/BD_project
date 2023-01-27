@@ -42,7 +42,7 @@ public class PromoMessage {
     private Long hasType;
 
     public PromoMessage(PromoMessage promoMessage) {
-        this.id = promoMessage.getId();
+        this.id = null;
         this.name = promoMessage.getName();
         this.publicationDate = promoMessage.getPublicationDate();
         this.published = promoMessage.getPublished();

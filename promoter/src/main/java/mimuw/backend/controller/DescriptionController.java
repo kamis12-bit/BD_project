@@ -3,6 +3,7 @@ package mimuw.backend.controller;
 import lombok.AllArgsConstructor;
 import mimuw.backend.entity.Description;
 import mimuw.backend.service.DescriptionService;
+import mimuw.backend.service.PromoMessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/api/description")
 public class DescriptionController {
     private DescriptionService descriptionService;
+    private PromoMessageService promoMessageService;
 
     @PostMapping("/create")
     public ResponseEntity<Description> createDescription(@RequestBody Description description) {
@@ -28,10 +30,9 @@ public class DescriptionController {
         return new ResponseEntity<>(updatedDescription, HttpStatus.OK);
     }
 
-    // TODO: We should set null in the promoMessage that the description belongs to 
-    //       or not allow deleting descriptions without deleting promoMessages.
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteDescription(@PathVariable Long id) {
+        promoMessageService.deleteDescriptionFromPromoMessage(id);
         descriptionService.deleteDescription(id);
         return new ResponseEntity<>("Description successfully deleted!", HttpStatus.OK);
     }

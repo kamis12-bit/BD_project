@@ -31,7 +31,7 @@ public class Graphics {
     private Long supervisor;
 
     public Graphics(Graphics graphics) {
-        this.id = graphics.getId();
+        this.id = null;
         this.state = graphics.getState();
         this.reason = graphics.getReason();
         this.graphicsContent = graphics.getGraphicsContent();

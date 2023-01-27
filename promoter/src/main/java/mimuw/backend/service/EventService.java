@@ -22,5 +22,7 @@ public interface EventService {
 
     List<MainViewEvent> getMainViewEvents();
 
-    List<MainViewEvent> getArchivisedViewEvents();
+    List<MainViewEvent> getArchivedViewEvents();
+
+    Event duplicateEvent(Long id);
 }

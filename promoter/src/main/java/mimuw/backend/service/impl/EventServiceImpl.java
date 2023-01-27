@@ -3,6 +3,8 @@ package mimuw.backend.service.impl;
 import lombok.AllArgsConstructor;
 import mimuw.backend.dto.MainViewEvent;
 import mimuw.backend.entity.Event;
+import mimuw.backend.entity.EventPerson;
+import mimuw.backend.repository.EventPersonRepository;
 import mimuw.backend.repository.EventRepository;
 import mimuw.backend.service.EventService;
 import mimuw.backend.service.PersonService;
@@ -16,6 +18,8 @@ import java.util.List;
 @AllArgsConstructor
 public class EventServiceImpl implements EventService {
     private EventRepository eventRepository;
+
+    private EventPersonRepository eventPersonRepository;
     private PersonService personService;
     private PromoMessageService promoMessageService;
 
@@ -82,7 +86,27 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<MainViewEvent> getArchivisedViewEvents() {
+    public List<MainViewEvent> getArchivedViewEvents() {
         return createResultForSelectedEvents(eventRepository.getAllArchivedEvents());
+    }
+
+    @Override
+    public Event duplicateEvent(Long id) {
+        Event eventToDuplicate = getEventById(id);
+        Event duplicatedEvent = new Event(eventToDuplicate);
+
+        Event createdEvent = eventRepository.save(duplicatedEvent);
+        Long newId = createdEvent.getId();
+
+        List<Long> personsId = eventPersonRepository.getPersonsIdByEvent(id);
+        for (Long personId: personsId) {
+            EventPerson eventPerson = new EventPerson();
+            eventPerson.setPerson(personId);
+            eventPerson.setEvent(newId);
+            eventPersonRepository.save(eventPerson);
+        }
+
+        promoMessageService.duplicatePromoMessagesByEvent(id, newId);
+        return createdEvent;
     }
 }

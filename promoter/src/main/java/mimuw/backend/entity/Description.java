@@ -31,7 +31,7 @@ public class Description {
     private Long supervisor;
 
     public Description(Description description) {
-        this.id = description.getId();
+        this.id = null;
         this.state = description.getState();
         this.reason = description.getReason();
         this.descriptionContent = description.getDescriptionContent();

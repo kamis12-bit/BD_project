@@ -22,4 +22,10 @@ public interface PromoMessageService {
     Integer countPromoMessagesByType(Long messageTypeId);
 
     PromoMessage duplicatePromoMessage(Long id);
+
+    void duplicatePromoMessagesByEvent(Long oldEventId, Long newEventId);
+
+    PromoMessage deleteDescriptionFromPromoMessage(Long descriptionId);
+
+    PromoMessage deleteGraphicsFromPromoMessage(Long graphicsId);
 }

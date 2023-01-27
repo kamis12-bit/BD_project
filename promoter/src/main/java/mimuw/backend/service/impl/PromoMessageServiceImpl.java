@@ -76,33 +76,70 @@ public class PromoMessageServiceImpl implements PromoMessageService {
         return promoMessageRepository.countPromoMessagesByType(messageTypeId);
     }
 
-    @Override
-    public PromoMessage duplicatePromoMessage(Long id) {
-        PromoMessage promoMessage = getPromoMessageById(id);
+    private PromoMessage duplicateDescriptionAndGraphics(PromoMessage promoMessage){
         PromoMessage newPromoMessage = new PromoMessage(promoMessage);
-
         if (promoMessage.getDescription() != null) {
+            System.out.println("Description: " + promoMessage.getDescription());
             Description oldDescription = descriptionRepository.findById(promoMessage.getDescription()).orElseThrow();
             Description newDescription = descriptionRepository.save(new Description(oldDescription));
             newPromoMessage.setDescription(newDescription.getId());
         }
 
         if (promoMessage.getGraphics() != null) {
+            System.out.println("Graphics: " + promoMessage.getGraphics());
             Graphics oldGraphics = graphicsRepository.findById(promoMessage.getGraphics()).orElseThrow();
             Graphics newGraphics = graphicsRepository.save(new Graphics(oldGraphics));
             newPromoMessage.setGraphics(newGraphics.getId());
         }
+        return newPromoMessage;
+    }
 
-        PromoMessage createdPromoMessage = promoMessageRepository.save(newPromoMessage);
-        Long newId = createdPromoMessage.getId();
-
-        List<Long> personsId = messagePersonRepository.getPersonsIdByPromoMessage(id);
+    private void duplicateMessagePersons(Long oldId, Long newId){
+        List<Long> personsId = messagePersonRepository.getPersonsIdByPromoMessage(oldId);
         for (Long personId: personsId){
             MessagePerson messagePerson = new MessagePerson();
             messagePerson.setPerson(personId);
             messagePerson.setPromoMessage(newId);
             messagePersonRepository.save(messagePerson);
         }
+    }
+
+    @Override
+    public PromoMessage duplicatePromoMessage(Long id) {
+        PromoMessage promoMessage = getPromoMessageById(id);
+        PromoMessage newPromoMessage = duplicateDescriptionAndGraphics(promoMessage);
+
+        PromoMessage createdPromoMessage = promoMessageRepository.save(newPromoMessage);
+        Long newId = createdPromoMessage.getId();
+        duplicateMessagePersons(id, newId);
+
         return createdPromoMessage;
+    }
+
+    @Override
+    public void duplicatePromoMessagesByEvent(Long oldEventId, Long newEventId) {
+        List<PromoMessage> promoMessages = promoMessageRepository.getPromoMessagesByEvent(oldEventId);
+        for (PromoMessage promoMessage: promoMessages){
+            PromoMessage newPromoMessage = new PromoMessage(promoMessage);
+            newPromoMessage.setEvent(newEventId);
+            PromoMessage changedPromoMessage = duplicateDescriptionAndGraphics(newPromoMessage);
+            PromoMessage createdPromoMessage = promoMessageRepository.save(changedPromoMessage);
+            Long newId = createdPromoMessage.getId();
+            duplicateMessagePersons(promoMessage.getId(), newId);
+        }
+    }
+
+    @Override
+    public PromoMessage deleteDescriptionFromPromoMessage(Long descriptionId) {
+        PromoMessage promoMessage = promoMessageRepository.getPromoMessageByDescription(descriptionId);
+        promoMessage.setDescription(null);
+        return promoMessageRepository.save(promoMessage);
+    }
+
+    @Override
+    public PromoMessage deleteGraphicsFromPromoMessage(Long graphicsId) {
+        PromoMessage promoMessage = promoMessageRepository.getPromoMessageByGraphics(graphicsId);
+        promoMessage.setGraphics(null);
+        return promoMessageRepository.save(promoMessage);
     }
 }

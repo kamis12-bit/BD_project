@@ -72,10 +72,10 @@ public class EventController {
         return new ResponseEntity<>(mainViewEvents, HttpStatus.OK);
     }
 
-    @GetMapping("/archivised-view")
-    public ResponseEntity<List<MainViewEvent>> getArchivisedViewEvents() {
-        List<MainViewEvent> archivisedViewEvents = eventService.getArchivisedViewEvents();
-        return new ResponseEntity<>(archivisedViewEvents, HttpStatus.OK);
+    @GetMapping("/archived-view")
+    public ResponseEntity<List<MainViewEvent>> getArchivedViewEvents() {
+        List<MainViewEvent> archivedViewEvents = eventService.getArchivedViewEvents();
+        return new ResponseEntity<>(archivedViewEvents, HttpStatus.OK);
     }
 
     @GetMapping("/archive/{id}")
@@ -92,5 +92,11 @@ public class EventController {
         event.setArchived(0);
         Event updatedEvent = eventService.updateEvent(event);
         return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+    }
+
+    @GetMapping("duplicate/{id}")
+    public ResponseEntity<Event> duplicateEvent(@PathVariable Long id){
+        Event createdEvent = eventService.duplicateEvent(id);
+        return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
     }
 }

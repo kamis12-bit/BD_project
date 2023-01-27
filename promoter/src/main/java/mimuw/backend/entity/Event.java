@@ -34,4 +34,13 @@ public class Event {
 
     @Column(columnDefinition = "NUMBER(1) NOT NULL")
     private Integer archived;
+
+    public Event(Event event) {
+        this.id = null;
+        this.name = event.getName();
+        this.description = event.getDescription();
+        this.beginDate = event.getBeginDate();
+        this.endDate = event.getEndDate();
+        this.archived = event.getArchived();
+    }
 }
