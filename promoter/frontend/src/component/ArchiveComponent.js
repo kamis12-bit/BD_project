@@ -4,24 +4,24 @@ import '../App.css'
 import { Link } from 'react-router-dom'
 import GoToMenu from './GoToMenu.js'
 
-class ListPersons extends Component {
+class ArchiveComponent extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      persons: [],
+      archives: [],
     }
   }
 
   componentDidMount() {
     axios
-      .get('/api/person/all')
+      .get('/api/event/archived-view')
       .then((response) => {
         this.setState({
-          persons: response.data,
+          archives: response.data,
         })
 
-        console.log(this.state.persons)
+        console.log(this.state.archives)
       })
       .catch((error) => {
         console.log(error)
@@ -31,12 +31,12 @@ class ListPersons extends Component {
   render() {
     return (
       <div>
-        {this.state.persons.map((person) => {
+        {this.state.archives.map((archive) => {
           return (
             <p>
-              <Link to={'/person/' + person.id} className='App-button'>
-                {person.firstName} {person.lastName} {person.avatar}
-              </Link>
+              <div className='App-button'>
+                {archive.name} {archive.beginDate} {archive.endDate} {archive.isPublished}
+              </div>
             </p>
           )
         })}
@@ -46,4 +46,4 @@ class ListPersons extends Component {
   }
 }
 
-export default ListPersons
+export default ArchiveComponent

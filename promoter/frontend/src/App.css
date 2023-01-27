@@ -18,6 +18,17 @@
   /* width: 100px; */
   color: #ffffff;
   text-align: center;
+  text-decoration: none;
+}
+
+.App-button-menu {
+  width: 200px;
+  display: inline-block;
+  background-color: #7b38d8;
+  padding: 10px;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
