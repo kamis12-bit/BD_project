@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import '../App.css'
 import { useParams } from 'react-router-dom'
-import GoToMenu from './GoToMenu'
+import { Link } from 'react-router-dom'
 import ButtonForm from './ButtonForm'
 
 export function withRouter(Children) {
@@ -36,6 +36,17 @@ class PersonComponent extends React.Component {
   }
   changeAvatar(event) {
     this.setState({ avatar: event })
+  }
+
+  delete = () => {
+    axios
+      .delete('/api/person/delete/' + this.state.id)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   update = () => {
@@ -91,11 +102,19 @@ class PersonComponent extends React.Component {
         <ButtonForm
           value={this.state.avatar}
           handleSubmit={this.changeAvatar}
-        />
-        <GoToMenu />
-        <button className='App-button' onClick={this.update}>
-          Update
-        </button>
+        /> 
+        <div>
+      <Link to='/list-persons' className='App-button'>
+        <span onClick={this.delete}>Delete person (Warning! Change permanent!)</span>
+      </Link>  
+      <Link to='/list-persons' className='App-button'>
+        <span onClick={this.update}>Update</span>
+      </Link>
+      <Link to='/list-persons' className='App-button'>
+        Reject changes and go back
+      </Link> 
+      </div>
+        
       </div>
     )
   }
