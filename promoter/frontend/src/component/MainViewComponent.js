@@ -4,24 +4,24 @@ import '../App.css'
 import { Link } from 'react-router-dom'
 import GoToMenu from './GoToMenu.js'
 
-class ListPersons extends Component {
+class MainViewComponent extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      persons: [],
+      mainView: [],
     }
   }
 
   componentDidMount() {
     axios
-      .get('/api/person/all')
+      .get('/api/event/main-view')
       .then((response) => {
         this.setState({
-          persons: response.data,
+          mainView: response.data,
         })
 
-        console.log(this.state.persons)
+        console.log(this.state.mainView)
       })
       .catch((error) => {
         console.log(error)
@@ -31,22 +31,19 @@ class ListPersons extends Component {
   render() {
     return (
       <div>
-        {this.state.persons.map((person) => {
+        {this.state.mainView.map((mainView) => {
           return (
             <p>
-              <Link to={'/person/' + person.id} className='App-button'>
-                {person.firstName} {person.lastName} {person.avatar}
-              </Link>
+              <div className='App-button'>
+                {mainView.name} {mainView.beginDate} {mainView.endDate} {mainView.isPublished}
+              </div>
             </p>
           )
         })}
-        <Link to={'/add-person/'} className='App-button'>
-          Add new person
-        </Link>
-        <GoToMenu />
+        <GoToMenu />{' '}
       </div>
     )
   }
 }
 
-export default ListPersons
+export default MainViewComponent
