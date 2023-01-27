@@ -36,7 +36,12 @@ class MainViewComponent extends React.Component {
             <p>
               <Link to={'/detail-view/' + mainView.id}>
                 <div className='App-button'>
-                  {mainView.name} {mainView.beginDate} {mainView.endDate} {mainView.isPublished}
+                  <div>
+                    {mainView.name}
+                    {mainView.isPublished ? '   ✅' : '   ❌'}
+                  </div> <br />
+                  beginDate: {mainView.beginDate} <br />
+                  endDate: {mainView.endDate} <br />
                 </div>
               </Link>
             </p>
