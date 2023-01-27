@@ -40,7 +40,10 @@ class ListPersons extends Component {
             </p>
           )
         })}
-        <GoToMenu />{' '}
+        <Link to={'/add-person/'} className='App-button'>
+          Add new person
+        </Link>
+        <GoToMenu />
       </div>
     )
   }
