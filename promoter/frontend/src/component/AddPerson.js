@@ -18,19 +18,19 @@ class AddPerson extends React.Component {
   }
 
   changeFirstName(event) {
-    this.setState({ firstName: event })
+    this.setState({ firstName: event.target.value })
   }
   changeLastName(event) {
-    this.setState({ lastName: event })
+    this.setState({ lastName: event.target.value })
   }
   changeAvatar(event) {
-    this.setState({ avatar: event })
+    this.setState({ avatar: event.target.value })
   }
 
   send = () => {
     const { firstName, lastName, avatar } = this.state
     axios
-      .post('/api/person/create/', {
+      .post('/api/person/create', {
         firstName: firstName,
         lastName: lastName,
         avatar: avatar,
