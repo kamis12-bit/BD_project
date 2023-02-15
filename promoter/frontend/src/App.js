@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import logo from './logo.svg'
 import './App.css'
 import PersonComponent from './component/PersonComponent'
@@ -10,13 +10,14 @@ import CalendarComponent from './component/CalendarComponent'
 import ThingsToCheck from './component/ThingsToCheck'
 import MessageTypesComponent from './component/MessageTypesComponent'
 import DetailViewComponent from './component/DetailViewComponent'
-import { Link, Routes, Route } from 'react-router-dom'
+import {Link, Routes, Route} from 'react-router-dom'
+import AddEvent from "./component/AddEvent";
 
 const App = () => (
   <div className='App'>
-    <img src={logo} className='App-logo' alt='logo' />
+    <img src={logo} className='App-logo' alt='logo'/>
     <div className='App-title'>
-      <Main />
+      <Main/>
     </div>
   </div>
 )
@@ -26,7 +27,7 @@ const Home = () => (
     <p
       style={{
         display: 'inline-block',
-        width: '300px',
+        width: '400px',
         padding: '30px',
         fontSize: '30px',
         fontWeight: 'bold',
@@ -34,9 +35,9 @@ const Home = () => (
         textAlign: 'center',
         textDecoration: 'none'
       }}
-     > This is the home page </p>
+    > This is the home page </p>
 
-     <br />
+    <br/>
 
     <p>
       <Link to={'/main-view'} className='App-button-menu'> Main View </Link>
@@ -51,7 +52,7 @@ const Home = () => (
       <Link to={'/things-to-check'} className='App-button-menu'> Things to check </Link>
     </p>
 
-    <br />
+    <br/>
 
     <p>
       <Link to='list-persons' className='App-button-menu'> Persons </Link>
@@ -64,16 +65,19 @@ const Home = () => (
 
 const Main = () => (
   <Routes>
-    <Route path='/' element={<Home />} />
-    <Route path='person/:id' element={<PersonComponent />} />
-    <Route path='list-persons' element={<ListPersons />} />
-    <Route path='main-view' element={<MainViewComponent />} />
-    <Route path='archive' element={<ArchiveComponent />} />
-    <Route path='calendar' element={<CalendarComponent />} />
-    <Route path='things-to-check' element={<ThingsToCheck />} />
-    <Route path='message-types' element={<MessageTypesComponent />} />
-    <Route path='add-person' element={<AddPerson />} />
-    <Route path='detail-view/:id' element={<DetailViewComponent />} />
+    <Route path='/' element={<Home/>}/>
+    <Route path='person/:id' element={<PersonComponent/>}/>
+    <Route path='list-persons' element={<ListPersons/>}/>
+    <Route path='add-person' element={<AddPerson/>}/>
+
+    <Route path='main-view' element={<MainViewComponent/>}/>
+    <Route path='add-event' element={<AddEvent/>}/>
+    <Route path='detail-view/:id' element={<DetailViewComponent/>}/>
+
+    <Route path='archive' element={<ArchiveComponent/>}/>
+    <Route path='calendar' element={<CalendarComponent/>}/>
+    <Route path='things-to-check' element={<ThingsToCheck/>}/>
+    <Route path='message-types' element={<MessageTypesComponent/>}/>
   </Routes>
 )
 

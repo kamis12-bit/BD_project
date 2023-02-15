@@ -17,28 +17,33 @@ import java.time.LocalDateTime;
 public class PromoMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "NUMBER(10)")
+//    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
+//    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
+    @Column(length = 100, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "DATE NOT NULL")
+//    @Column(columnDefinition = "DATE NOT NULL")
+    @Column(nullable = false)
     private LocalDateTime publicationDate;
 
-    @Column(columnDefinition = "NUMBER(1) NOT NULL")
+//    @Column(columnDefinition = "NUMBER(1) NOT NULL")
+    @Column(nullable = false)
     private Integer published;
 
-    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+//    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    @Column(nullable = false)
     private Long event;
 
-    @Column(columnDefinition = "NUMBER(10)")
+//    @Column(columnDefinition = "NUMBER(10)")
     private Long graphics;
 
-    @Column(columnDefinition = "NUMBER(10)")
+//    @Column(columnDefinition = "NUMBER(10)")
     private Long description;
 
-    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+//    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    @Column(nullable = false)
     private Long hasType;
 
     public PromoMessage(PromoMessage promoMessage) {

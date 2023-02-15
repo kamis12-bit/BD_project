@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 import '../App.css'
-import { useParams } from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import GoToMenu from './GoToMenu.js'
+import getFormattedDateAndTime from "./DateAndTime";
 
 export function withRouter(Children) {
   return (props) => {
-    const match = { params: useParams() }
-    return <Children {...props} match={match} />
+    const match = {params: useParams()}
+    return <Children {...props} match={match}/>
   }
 }
 
@@ -57,23 +58,25 @@ class DetailViewComponent extends React.Component {
             <div>
               {this.state.name}
               {this.state.isPublished ? '   ✅' : '   ❌'}
-            </div> <br />
-            <div> {this.state.description} </div> <br />
-            beginDate: {this.state.beginDate} <br />
-            endDate: {this.state.endDate} <br />
+            </div>
+            <br/>
+            <div> {this.state.description} </div>
+            <br/>
+            beginDate: {getFormattedDateAndTime(this.state.beginDate)} <br/>
+            endDate: {getFormattedDateAndTime(this.state.endDate)} <br/>
             <div>
               {this.state.persons.map((person) => {
                 return (
-                <p>
-                  {person.firstName} {person.lastName} <br />
-                  {person.avatar}
-                </p>
+                  <p>
+                    {person.firstName} {person.lastName} <br/>
+                    {person.avatar}
+                  </p>
                 )
               })}
             </div>
           </div>
         </p>
-        <GoToMenu />{' '}
+        <GoToMenu/>{' '}
       </div>
     )
   }

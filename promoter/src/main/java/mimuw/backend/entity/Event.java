@@ -17,22 +17,27 @@ import java.time.LocalDateTime;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "NUMBER(10)")
+//    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
+//    @Column(columnDefinition = "VARCHAR2(100) NOT NULL")
+    @Column(length = 100, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "VARCHAR2(1000)")
+//    @Column(columnDefinition = "VARCHAR2(1000)")
+    @Column(length = 1000)
     private String description;
 
-    @Column(columnDefinition = "DATE NOT NULL")
+//    @Column(columnDefinition = "DATE NOT NULL")
+    @Column(nullable = false)
     private LocalDateTime beginDate;
 
-    @Column(columnDefinition = "DATE NOT NULL")
+//    @Column(columnDefinition = "DATE NOT NULL")
+    @Column(nullable = false)
     private LocalDateTime endDate;
 
-    @Column(columnDefinition = "NUMBER(1) NOT NULL")
+//    @Column(columnDefinition = "NUMBER(1) NOT NULL")
+    @Column(nullable = false)
     private Integer archived;
 
     public Event(Event event) {

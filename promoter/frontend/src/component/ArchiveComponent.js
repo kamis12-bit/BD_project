@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 import '../App.css'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import GoToMenu from './GoToMenu.js'
 
 class ArchiveComponent extends React.Component {
@@ -39,16 +39,17 @@ class ArchiveComponent extends React.Component {
                   <div>
                     {archive.name}
                     {archive.isPublished ? '   ✅' : '   ❌'}
-                  </div> <br />
-                  beginDate: {archive.beginDate} <br />
-                  endDate: {archive.endDate} <br />
+                  </div>
+                  <br/>
+                  beginDate: {archive.beginDate} <br/>
+                  endDate: {archive.endDate} <br/>
                   <div>
                     {archive.persons.map((person) => {
                       return (
-                      <p>
-                        {person.firstName} {person.lastName} <br />
-                        {person.avatar}
-                      </p>
+                        <p>
+                          {person.firstName} {person.lastName} <br/>
+                          {person.avatar}
+                        </p>
                       )
                     })}
                   </div>
@@ -57,7 +58,7 @@ class ArchiveComponent extends React.Component {
             </p>
           )
         })}
-        <GoToMenu />{' '}
+        <GoToMenu/>{' '}
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 class AddPerson extends React.Component {
@@ -18,17 +18,19 @@ class AddPerson extends React.Component {
   }
 
   changeFirstName(event) {
-    this.setState({ firstName: event.target.value })
+    this.setState({firstName: event.target.value})
   }
+
   changeLastName(event) {
-    this.setState({ lastName: event.target.value })
+    this.setState({lastName: event.target.value})
   }
+
   changeAvatar(event) {
-    this.setState({ avatar: event.target.value })
+    this.setState({avatar: event.target.value})
   }
 
   send = () => {
-    const { firstName, lastName, avatar } = this.state
+    const {firstName, lastName, avatar} = this.state
     axios
       .post('/api/person/create', {
         firstName: firstName,
@@ -50,13 +52,13 @@ class AddPerson extends React.Component {
         <p>
           <form>
             <label>
-              <input type='text' onChange={this.changeFirstName} />
+              <input type='text' onChange={this.changeFirstName}/>
             </label>
             <label>
-              <input type='text' onChange={this.changeLastName} />
+              <input type='text' onChange={this.changeLastName}/>
             </label>
             <label>
-              <input type='text' onChange={this.changeAvatar} />
+              <input type='text' onChange={this.changeAvatar}/>
             </label>
           </form>
         </p>
