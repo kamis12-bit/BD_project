@@ -29,14 +29,15 @@ class ListPersons extends Component {
   }
 
   render() {
+    const ShowImage = ({data}) => <img src={`data:image/jpeg;base64,${data}`} width={100}  alt="avatar"/>
     return (
       <div>
         {this.state.persons.map((person) => {
           return (
             <p>
-              <Link to={'/person/' + person.id} className='App-button'>
+              <Link to={'/person/' + person.id} className='App-button-person'>
                 {person.firstName} {person.lastName} <br/>
-                {person.avatar}
+                <ShowImage data={person.avatar}/>
               </Link>
             </p>
           )

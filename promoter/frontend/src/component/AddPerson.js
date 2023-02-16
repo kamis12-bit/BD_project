@@ -2,75 +2,85 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import axios from 'axios'
 
-class AddPerson extends React.Component {
-  constructor(props) {
-    super(props)
+const AddPerson = (props) => {
+  const [selectedFile, setSelectedFile] = React.useState(null)
+  const [preview, setPreview] = React.useState(null)
+  const [firstName, setFirstName] = React.useState('')
+  const [lastName, setLastName] = React.useState('')
 
-    this.state = {
-      firstName: '',
-      lastName: '',
-      avatar: '',
+  const changeFirstName = (event) => {
+    setFirstName(event.target.value)
+  }
+
+  const changeLastName = (event) => {
+    setLastName(event.target.value)
+  }
+
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0])
+    setPreview(URL.createObjectURL(event.target.files[0]))
+  }
+
+  const handleSubmission = async (event) => {
+    event.preventDefault()
+
+    console.log(selectedFile)
+    console.log(firstName)
+    console.log(lastName)
+
+    const formData = new FormData()
+    formData.append('avatar', selectedFile)
+    formData.append('firstName', firstName)
+    formData.append('lastName', lastName)
+
+    try {
+      const response = await axios.post('/api/person/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      console.log(response)
+    } catch (error) {
+      console.log(error)
     }
-
-    this.changeFirstName = this.changeFirstName.bind(this)
-    this.changeLastName = this.changeLastName.bind(this)
-    this.changeAvatar = this.changeAvatar.bind(this)
   }
 
-  changeFirstName(event) {
-    this.setState({firstName: event.target.value})
-  }
+  return (
+    <div>
+      <h1>New Person:</h1>
 
-  changeLastName(event) {
-    this.setState({lastName: event.target.value})
-  }
+      <form onSubmit={handleSubmission}>
+        <p>First Name: </p>
+        <label>
+          <input type='text' onChange={changeFirstName}/>
+        </label> <br/>
 
-  changeAvatar(event) {
-    this.setState({avatar: event.target.value})
-  }
+        <p>Last Name: </p>
+        <label>
+          <input type='text' onChange={changeLastName}/>
+        </label> <br/>
 
-  send = () => {
-    const {firstName, lastName, avatar} = this.state
-    axios
-      .post('/api/person/create', {
-        firstName: firstName,
-        lastName: lastName,
-        avatar: avatar,
-      })
-      .then((response) => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }
+        <p>Avatar: </p>
+        <label>
+          <input type='file' name='file' onChange={changeHandler} />
+        </label> <br/> <br/>
 
-  render() {
-    return (
-      <div>
-        <h1>New Person:</h1>
-        <p>
-          <form>
-            <label>
-              <input type='text' onChange={this.changeFirstName}/>
-            </label>
-            <label>
-              <input type='text' onChange={this.changeLastName}/>
-            </label>
-            <label>
-              <input type='text' onChange={this.changeAvatar}/>
-            </label>
-          </form>
-        </p>
-        <Link to='/list-persons' className='App-button'>
-          <span onClick={this.send}>Create person</span>
-        </Link>
-        <Link to='/list-persons' className='App-button'>
-          Go back
-        </Link>
-      </div>
-    )
-  }
+        <div>
+          {preview && (
+            <img src={preview} alt='avatar' style={{width: '100px'}} />
+          )}
+        </div>
+
+        <button type='submit' className='App-button'>
+          Create person
+        </button>
+      </form>
+
+      <Link to='/list-persons' className='App-button'>
+        Go back
+      </Link>
+    </div>
+  )
 }
 
 export default AddPerson

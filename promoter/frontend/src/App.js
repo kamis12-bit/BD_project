@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import logo from './logo.svg'
 import './App.css'
 import PersonComponent from './component/PersonComponent'
@@ -12,10 +12,11 @@ import MessageTypesComponent from './component/MessageTypesComponent'
 import DetailViewComponent from './component/DetailViewComponent'
 import {Link, Routes, Route} from 'react-router-dom'
 import AddEvent from "./component/AddEvent";
+import Dashboard from "./dashboard/Dashboard"
+import ImageUploader from "./component/ImageUploader";
 
 const App = () => (
   <div className='App'>
-    <img src={logo} className='App-logo' alt='logo'/>
     <div className='App-title'>
       <Main/>
     </div>
@@ -38,6 +39,14 @@ const Home = () => (
     > This is the home page </p>
 
     <br/>
+
+    <p>
+      <Link to={'/dashboard'} className='App-button-menu'> Dashboard </Link>
+    </p>
+
+    <p>
+      <Link to={'image-uploader'} className='App-button-menu'> Image Uploader </Link>
+    </p>
 
     <p>
       <Link to={'/main-view'} className='App-button-menu'> Main View </Link>
@@ -78,6 +87,9 @@ const Main = () => (
     <Route path='calendar' element={<CalendarComponent/>}/>
     <Route path='things-to-check' element={<ThingsToCheck/>}/>
     <Route path='message-types' element={<MessageTypesComponent/>}/>
+
+    <Route path={'dashboard'} element={<Dashboard/>}/>
+    <Route path={'image-uploader'} element={<ImageUploader/>}/>
   </Routes>
 )
 
