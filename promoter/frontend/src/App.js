@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import logo from './logo.svg'
 import './App.css'
 import PersonComponent from './component/PersonComponent'
@@ -15,7 +15,6 @@ import AddEvent from "./component/AddEvent";
 
 const App = () => (
   <div className='App'>
-    <img src={logo} className='App-logo' alt='logo'/>
     <div className='App-title'>
       <Main/>
     </div>

@@ -90,6 +90,7 @@ class PersonComponent extends React.Component {
   }
 
   render() {
+    const ShowImage = ({data}) => <img src={`data:image/jpeg;base64,${data}`} width={100}  alt="avatar"/>
     return (
       <div>
         Person:
@@ -102,7 +103,7 @@ class PersonComponent extends React.Component {
           handleSubmit={this.changeLastName}
         />
         <ButtonForm
-          value={this.state.avatar}
+          value={<ShowImage data={this.state.avatar}/>}
           handleSubmit={this.changeAvatar}
         />
         <div>

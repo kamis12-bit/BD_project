@@ -27,6 +27,10 @@ public class Person {
     String lastName;
 
 //    @Column(columnDefinition = "VARCHAR2(100)")
-    @Column(length = 100)
-    String avatar;
+//    @Column(length = 100)
+//    String avatar;
+
+    @Lob
+    @Column(columnDefinition = "BLOB")
+    byte[] avatar;
 }

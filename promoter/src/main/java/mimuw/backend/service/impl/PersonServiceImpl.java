@@ -1,11 +1,15 @@
 package mimuw.backend.service.impl;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.dto.PersonDto;
 import mimuw.backend.entity.Person;
 import mimuw.backend.repository.PersonRepository;
 import mimuw.backend.service.PersonService;
+import mimuw.backend.util.ImageUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -14,16 +18,22 @@ public class PersonServiceImpl implements PersonService {
     private final PersonRepository personRepository;
 
     @Override
-    public Person createPerson(Person person) {
+    public Person createPerson(String firstName, String lastName, MultipartFile avatar) throws IOException {
+        Person person = new Person();
+        person.setFirstName(firstName);
+        person.setLastName(lastName);
+//        person.setAvatar(ImageUtil.compressImage(avatar.getBytes()));
+        person.setAvatar(avatar.getBytes());
         return personRepository.save(person);
     }
 
     @Override
-    public Person updatePerson(Person person) {
-        Person personToUpdate = personRepository.findById(person.getId()).orElseThrow();
-        personToUpdate.setFirstName(person.getFirstName());
-        personToUpdate.setLastName(person.getLastName());
-        personToUpdate.setAvatar(person.getAvatar());
+    public Person updatePerson(Long id, String firstName, String lastName, MultipartFile avatar) throws IOException {
+        Person personToUpdate = personRepository.findById(id).orElseThrow();
+        personToUpdate.setFirstName(firstName);
+        personToUpdate.setLastName(lastName);
+//        personToUpdate.setAvatar(ImageUtil.compressImage(avatar.getBytes()));
+        personToUpdate.setAvatar(avatar.getBytes());
         return personRepository.save(personToUpdate);
     }
 
