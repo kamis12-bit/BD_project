@@ -1,16 +1,14 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 import '../App.css'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import GoToMenu from './GoToMenu.js'
 
 class MessageTypesComponent extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-
-    }
+    this.state = {}
   }
 
   componentDidMount() {
@@ -20,7 +18,7 @@ class MessageTypesComponent extends React.Component {
   render() {
     return (
       <div>
-        <GoToMenu />{' '}
+        <GoToMenu/>{' '}
       </div>
     )
   }

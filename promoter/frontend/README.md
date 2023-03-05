@@ -1,3 +1,14 @@
+# To start the frontend type the following commands in the terminal
+npm install
+
+npm install @mui/material @emotion/react @emotion/styled
+
+npm install @mui/icons-material
+
+npm install recharts
+
+npm start
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

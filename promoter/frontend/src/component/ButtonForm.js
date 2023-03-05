@@ -15,12 +15,12 @@ class ButtonForm extends React.Component {
   }
 
   handleSubmit(event) {
-    this.setState({ viewForm: false })
+    this.setState({viewForm: false})
     this.props.handleSubmit(this.state.value)
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value })
+    this.setState({value: event.target.value})
   }
 
   render() {
@@ -30,9 +30,9 @@ class ButtonForm extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <label>
               {this.props.value}
-              <input type='text' onChange={this.handleChange} />
+              <input type='text' onChange={this.handleChange}/>
             </label>
-            <input type='submit' value='Submit' />
+            <input type='submit' value='Submit'/>
           </form>
         </p>
       )
@@ -40,7 +40,7 @@ class ButtonForm extends React.Component {
     return (
       <button
         className='App-button'
-        onClick={() => this.setState({ viewForm: true })}
+        onClick={() => this.setState({viewForm: true})}
       >
         {this.props.value}
       </button>

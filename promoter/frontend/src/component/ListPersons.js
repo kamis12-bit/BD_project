@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 import '../App.css'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import GoToMenu from './GoToMenu.js'
 
 class ListPersons extends Component {
@@ -29,14 +29,15 @@ class ListPersons extends Component {
   }
 
   render() {
+    const ShowImage = ({data}) => <img src={`data:image/jpeg;base64,${data}`} width={100}  alt="avatar"/>
     return (
       <div>
         {this.state.persons.map((person) => {
           return (
             <p>
-              <Link to={'/person/' + person.id} className='App-button'>
-                {person.firstName} {person.lastName} <br />
-                {person.avatar}
+              <Link to={'/person/' + person.id} className='App-button-person'>
+                {person.firstName} {person.lastName} <br/>
+                <ShowImage data={person.avatar}/>
               </Link>
             </p>
           )
@@ -44,7 +45,7 @@ class ListPersons extends Component {
         <Link to={'/add-person/'} className='App-button'>
           Add new person
         </Link>
-        <GoToMenu />
+        <GoToMenu/>
       </div>
     )
   }

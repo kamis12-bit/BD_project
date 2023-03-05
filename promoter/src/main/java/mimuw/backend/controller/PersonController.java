@@ -1,6 +1,7 @@
 package mimuw.backend.controller;
 
 import lombok.AllArgsConstructor;
+import mimuw.backend.dto.PersonDto;
 import mimuw.backend.entity.Person;
 import mimuw.backend.service.DescriptionService;
 import mimuw.backend.service.EventPersonService;
@@ -10,13 +11,14 @@ import mimuw.backend.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/person")
-@CrossOrigin("http://localhost:3000")
+//@CrossOrigin("http://localhost:3000")
 public class PersonController {
     private PersonService personService;
     private GraphicsService graphicsService;
@@ -25,16 +27,25 @@ public class PersonController {
     private MessagePersonService messagePersonService;
 
     @PostMapping("/create")
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        Person createdPerson = personService.createPerson(person);
-        return new ResponseEntity<>(createdPerson, HttpStatus.CREATED);
+    public ResponseEntity<Person> createPerson(@RequestParam String firstName, @RequestParam String lastName,
+                                               @RequestParam MultipartFile avatar) {
+        try {
+            Person createdPerson = personService.createPerson(firstName, lastName, avatar);
+            return new ResponseEntity<>(createdPerson, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person person) {
-        person.setId(id);
-        Person updatedPerson = personService.updatePerson(person);
-        return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestParam String firstName,
+                                               @RequestParam String lastName, @RequestParam MultipartFile avatar) {
+        try {
+            Person updatedPerson = personService.updatePerson(id, firstName, lastName, avatar);
+            return new ResponseEntity<>(updatedPerson, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/delete/{id}")

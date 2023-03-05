@@ -15,12 +15,14 @@ import lombok.Setter;
 public class EventPerson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "NUMBER(10)")
+//    @Column(columnDefinition = "NUMBER(10)")
     private Long id;
 
-    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+//    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    @Column(nullable = false)
     private Long event;
 
-    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+//    @Column(columnDefinition = "NUMBER(10) NOT NULL")
+    @Column(nullable = false)
     private Long person;
 }

@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axios from 'axios'
 import '../App.css'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import GoToMenu from './GoToMenu.js'
+import getFormattedDateAndTime from "./DateAndTime";
 
 class MainViewComponent extends React.Component {
   constructor(props) {
@@ -39,16 +40,17 @@ class MainViewComponent extends React.Component {
                   <div>
                     {mainView.name}
                     {mainView.isPublished ? '   ✅' : '   ❌'}
-                  </div> <br />
-                  beginDate: {mainView.beginDate} <br />
-                  endDate: {mainView.endDate} <br />
+                  </div>
+                  <br/>
+                  beginDate: {getFormattedDateAndTime(mainView.beginDate)} <br/>
+                  endDate: {getFormattedDateAndTime(mainView.endDate)} <br/>
                   <div>
                     {mainView.persons.map((person) => {
                       return (
-                      <p>
-                        {person.firstName} {person.lastName} <br />
-                        {person.avatar}
-                      </p>
+                        <p>
+                          {person.firstName} {person.lastName} <br/>
+                          {person.avatar}
+                        </p>
                       )
                     })}
                   </div>
@@ -57,7 +59,10 @@ class MainViewComponent extends React.Component {
             </p>
           )
         })}
-        <GoToMenu />{' '}
+        <Link to={'/add-event/'} className='App-button'>
+          Add new event
+        </Link>
+        <GoToMenu/>{' '}
       </div>
     )
   }
